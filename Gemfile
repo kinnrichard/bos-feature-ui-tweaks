@@ -62,7 +62,7 @@ gem "csv"
 gem "phonelib"
 
 # GitHub API client for issue creation and PR management
-gem "octokit", "~> 9.1"
+gem "octokit", "~> 10.0"
 
 # PyCall for Python integration (email parsing with Talon)
 gem "pycall", "~> 1.5"
