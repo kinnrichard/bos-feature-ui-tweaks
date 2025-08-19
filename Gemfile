@@ -40,7 +40,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Use the database-backed adapters for Rails.cache and Action Cable
 gem "solid_cache"
 # gem "solid_queue" # Replaced with GoodJob due to heartbeat issues
-gem "good_job", "~> 4.0"
+gem "good_job", "~> 4.11"
 gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
