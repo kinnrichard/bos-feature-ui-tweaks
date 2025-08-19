@@ -116,7 +116,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
-    faraday (2.13.1)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -168,7 +168,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.12.2)
+    json (2.13.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (3.1.2)
@@ -251,7 +251,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
-    octokit (9.2.0)
+    octokit (10.0.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
     ostruct (0.6.2)
@@ -443,7 +443,7 @@ DEPENDENCIES
   kamal
   kaminari
   mocha
-  octokit (~> 9.1)
+  octokit (~> 10.0)
   pg (~> 1.1)
   phonelib
   puma (>= 5.0)
