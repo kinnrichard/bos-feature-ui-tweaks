@@ -1,0 +1,25 @@
+# Contact methods for people
+
+john_phone:
+  person: john_doe
+  value: "555-1234"
+  formatted_value: "(555) 123-4567"
+  contact_type: 0 # phone
+
+john_email:
+  person: john_doe
+  value: "john@acme.com"
+  formatted_value: "john@acme.com"
+  contact_type: 1 # email
+
+jane_phone:
+  person: jane_smith
+  value: "555-5678"
+  formatted_value: "(555) 567-8901"
+  contact_type: 0 # phone
+
+bob_email:
+  person: bob_wilson
+  value: "bob@techstartup.com"
+  formatted_value: "bob@techstartup.com"
+  contact_type: 1 # email

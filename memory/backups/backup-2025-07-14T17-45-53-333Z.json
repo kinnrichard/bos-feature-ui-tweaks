@@ -1,0 +1,94 @@
+{
+  "timestamp": "2025-07-14T17:45:53.333Z",
+  "version": "1.0",
+  "entries": [
+    {
+      "id": "entry_md3e9upe_5a9iisnjm",
+      "key": "story_030_details",
+      "value": "",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-07-14T17:45:53.330Z",
+      "updatedAt": "2025-07-14T17:45:53.330Z",
+      "lastAccessedAt": "2025-07-14T17:45:53.330Z",
+      "version": 1,
+      "size": 31,
+      "compressed": false,
+      "checksum": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+      "references": [],
+      "dependencies": []
+    }
+  ],
+  "statistics": {
+    "overview": {
+      "totalEntries": 1,
+      "totalSize": 31,
+      "compressedEntries": 0,
+      "compressionRatio": 1,
+      "indexSize": 50,
+      "memoryUsage": 7339920,
+      "diskUsage": 0
+    },
+    "distribution": {
+      "byNamespace": {
+        "default": {
+          "count": 1,
+          "size": 31
+        }
+      },
+      "byType": {
+        "string": {
+          "count": 1,
+          "size": 31
+        }
+      },
+      "byOwner": {
+        "system": {
+          "count": 1,
+          "size": 31
+        }
+      },
+      "byAccessLevel": {
+        "shared": {
+          "count": 1,
+          "size": 31
+        }
+      }
+    },
+    "temporal": {
+      "entriesCreatedLast24h": 1,
+      "entriesUpdatedLast24h": 1,
+      "entriesAccessedLast24h": 1,
+      "oldestEntry": "2025-07-14T17:45:53.330Z",
+      "newestEntry": "2025-07-14T17:45:53.330Z"
+    },
+    "performance": {
+      "averageQueryTime": 0,
+      "averageWriteTime": 1,
+      "cacheHitRatio": 0,
+      "indexEfficiency": 0.95
+    },
+    "health": {
+      "expiredEntries": 0,
+      "orphanedReferences": 0,
+      "duplicateKeys": 0,
+      "corruptedEntries": 0,
+      "recommendedCleanup": false
+    },
+    "optimization": {
+      "suggestions": [],
+      "potentialSavings": {
+        "compression": 0,
+        "cleanup": 0,
+        "deduplication": 0
+      },
+      "indexOptimization": [
+        "Consider periodic index rebuilding for optimal performance"
+      ]
+    }
+  }
+}

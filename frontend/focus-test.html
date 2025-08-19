@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Focus Behavior Test</title>
+    <style>
+        .task-actions {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .task-actions:focus-within {
+            opacity: 1;
+        }
+        .task-item:hover .task-actions {
+            opacity: 1;
+        }
+        .task-action-button {
+            border: 1px solid #ccc;
+            padding: 8px;
+            background: white;
+        }
+        .task-action-button:focus {
+            outline: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="task-item">
+        <div class="task-actions">
+            <button class="task-action-button" id="testButton">Info Button</button>
+        </div>
+    </div>
+
+    <script>
+        const button = document.getElementById('testButton');
+        
+        button.addEventListener('click', () => {
+            console.log('Button clicked, has focus:', document.activeElement === button);
+            
+            // Simulate what BasePopover does
+            setTimeout(() => {
+                console.log('About to blur, has focus:', document.activeElement === button);
+                button.blur();
+                console.log('After blur, has focus:', document.activeElement === button);
+                console.log('Active element is:', document.activeElement);
+            }, 100);
+        });
+
+        button.addEventListener('focus', () => {
+            console.log('Button focused');
+        });
+
+        button.addEventListener('blur', () => {
+            console.log('Button blurred');
+        });
+    </script>
+</body>
+</html>

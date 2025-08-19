@@ -1,0 +1,126 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+inbound_email:
+  front_id: msg_inbound_001
+  front_conversation: one
+  message_uid: uid_inbound_001
+  message_type: email
+  is_inbound: true
+  is_draft: false
+  subject: "Re: Email Parser Implementation"
+  blurb: "Thanks for the update on the project..."
+  body_html: |
+    <div>Thanks for the update on the project. I've reviewed the changes.</div>
+    <div class="gmail_quote">
+      <blockquote>
+        <div>Original message content here</div>
+      </blockquote>
+    </div>
+  body_plain: |
+    Thanks for the update on the project. I've reviewed the changes.
+    
+    Best regards,
+    Sarah
+    
+    On Mon, Dec 4, 2023:
+    > Original message content here
+  error_type: 
+  draft_mode: 
+  metadata: {}
+  api_links: {}
+  created_at_timestamp: <%= 1.hour.ago.to_f %>
+  author: one
+
+outbound_email:
+  front_id: msg_outbound_001
+  front_conversation: one
+  message_uid: uid_outbound_001
+  message_type: email
+  is_inbound: false
+  is_draft: false
+  subject: "Email Parser Implementation"
+  blurb: "The email parsing implementation is complete..."
+  body_html: |
+    <div>The email parsing implementation is complete!</div>
+    <div>Technical highlights:</div>
+    <ul>
+      <li>Talon library integration</li>
+      <li>Batch processing</li>
+    </ul>
+  body_plain: |
+    The email parsing implementation is complete!
+    
+    Technical highlights:
+    - Talon library integration
+    - Batch processing
+    
+    Best regards,
+    John Doe
+  error_type: 
+  draft_mode: 
+  metadata: {}
+  api_links: {}
+  created_at_timestamp: <%= 2.hours.ago.to_f %>
+  author: two
+
+another_email:
+  front_id: msg_another_001
+  front_conversation: two
+  message_uid: uid_another_001
+  message_type: email
+  is_inbound: true
+  is_draft: false
+  subject: "Test Email for Parser"
+  blurb: "This is a test email..."
+  body_html: |
+    <p>This is a test email for the parser.</p>
+    <p>Best,<br>Test User</p>
+  body_plain: |
+    This is a test email for the parser.
+    
+    Best,
+    Test User
+  error_type: 
+  draft_mode: 
+  metadata: {}
+  api_links: {}
+  created_at_timestamp: <%= 3.hours.ago.to_f %>
+  author: one
+
+draft_email:
+  front_id: msg_draft_001
+  front_conversation: one
+  message_uid: uid_draft_001
+  message_type: email
+  is_inbound: true
+  is_draft: true
+  subject: "Draft Email"
+  blurb: "This is a draft message..."
+  body_html: |
+    <p>This is a draft message that should not be parsed.</p>
+  body_plain: |
+    This is a draft message that should not be parsed.
+  error_type: 
+  draft_mode: live
+  metadata: {}
+  api_links: {}
+  created_at_timestamp: <%= 30.minutes.ago.to_f %>
+  author: one
+
+sms_message:
+  front_id: msg_sms_001
+  front_conversation: two
+  message_uid: uid_sms_001
+  message_type: sms
+  is_inbound: true
+  is_draft: false
+  subject: ""
+  blurb: "This is an SMS message"
+  body_html: 
+  body_plain: "This is an SMS message that should not be parsed by email parser."
+  error_type: 
+  draft_mode: 
+  metadata: {}
+  api_links: {}
+  created_at_timestamp: <%= 45.minutes.ago.to_f %>
+  author: two

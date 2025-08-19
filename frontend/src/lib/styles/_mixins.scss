@@ -1,0 +1,169 @@
+// SASS Mixins for Common Patterns
+@use 'variables' as *;
+
+// ===== DIMENSION MIXINS =====
+
+// Square element with consistent width/height
+@mixin square-element($size) {
+  width: $size;
+  height: $size;
+}
+
+// Flexible square that can expand
+@mixin flexible-square($size, $min-size: null) {
+  width: $size;
+  height: $size;
+  
+  @if $min-size {
+    min-width: $min-size;
+    min-height: $min-size;
+  }
+}
+
+// ===== LAYOUT MIXINS =====
+
+// Centered flexbox container
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Horizontal flexbox with gap
+@mixin flex-row($gap: $gap-lg) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+
+// ===== TRANSITION MIXINS =====
+
+// Smooth transition for properties
+@mixin transition-smooth($property: all, $duration: $duration-fast) {
+  transition: #{$property} #{$duration} var(--easing-smooth, #{$easing-smooth});
+}
+
+// Transform-only transition for animations
+@mixin transition-transform($duration: $duration-normal) {
+  transition: transform #{$duration} #{$easing-standard};
+}
+
+// Opacity fade transition
+@mixin transition-opacity($duration: $duration-fast) {
+  transition: opacity #{$duration} #{$easing-standard};
+}
+
+// ===== TASK SELECTION MIXIN =====
+
+// The most repeated pattern - task selection styling
+@mixin task-selected-state {
+  background-color: var(--accent-blue) !important;
+  color: white !important;
+  text-shadow: $text-shadow-selection;
+  border-left: 3px solid var(--accent-blue);
+  border-radius: $radius-sm;
+}
+
+// ===== FOCUS RING MIXINS =====
+
+// Standard focus ring
+@mixin focus-ring-standard {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.75);
+  position: relative;
+  z-index: $z-focus-ring;
+}
+
+// Tight/inset focus ring
+@mixin focus-ring-tight {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(0, 163, 255, 0.75);
+  position: relative;
+  z-index: $z-focus-ring;
+}
+
+// ===== RESPONSIVE MIXINS =====
+
+// Mobile-first breakpoints
+@mixin mobile-down {
+  @media (max-width: #{$breakpoint-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
+// Touch device detection
+@mixin touch-device {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+// Desktop hover support
+@mixin desktop-hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+// ===== ANIMATION MIXINS =====
+
+// Task deletion animation
+@mixin task-deletion-animation {
+  height: 0 !important;
+  opacity: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none;
+  transform: scale(0.95);
+}
+
+// FLIP animation setup
+@mixin flip-animation-element {
+  will-change: transform;
+  z-index: $z-flip-animation;
+}
+
+// Reduced motion support
+@mixin no-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// ===== BUTTON MIXINS =====
+
+// Action button base styles
+@mixin action-button-base($padding-y: 12px, $padding-x: 24px) {
+  display: flex;
+  align-items: center;
+  gap: $gap-lg;
+  padding: #{$padding-y} #{$padding-x};
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: $radius-lg;
+  font-size: $font-size-base;
+  font-weight: 500;
+  cursor: normal;
+  text-decoration: none;
+  @include transition-smooth();
+  
+  &:hover {
+    background-color: var(--accent-blue-hover, #0089e0);
+  }
+}
+
+// ===== ACCESSIBILITY MIXINS =====
+
+// High contrast mode support
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}

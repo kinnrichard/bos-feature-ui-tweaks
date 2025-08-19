@@ -1,0 +1,196 @@
+#!/usr/bin/env ruby
+
+# Standalone script to import FileMaker XML files
+# Usage: bin/import_filemaker [clients|jobs|tasks|contacts|all]
+
+require_relative '../config/environment'
+require_relative '../lib/filemaker_importer'
+
+def print_usage
+  puts <<~USAGE
+    FileMaker XML Import Tool
+    
+    Usage: bin/import_filemaker [command] [options]
+    
+    Commands:
+      all       - Import all FileMaker XML files in order
+      clients   - Import only FMPClients.xml
+      jobs      - Import only FMPCases.xml  
+      tasks     - Import only FMPTasks.xml
+      contacts  - Import only FMPContactInfo.xml
+      status    - Show current import status
+      clean     - Remove all imported data (CAUTION!)
+      
+    Options:
+      --dry-run - Preview what would be imported without making changes
+      --verbose - Show detailed import progress
+      
+    Examples:
+      bin/import_filemaker all
+      bin/import_filemaker clients --dry-run
+      bin/import_filemaker status
+  USAGE
+end
+
+def import_status
+  puts "\n=== Current Database Status ==="
+  puts "Clients:         #{Client.count} records"
+  puts "People:          #{Person.count} records"
+  puts "Jobs:            #{Job.count} records"
+  puts "Tasks:           #{Task.count} records"
+  puts "Contact Methods: #{ContactMethod.count} records"
+  
+  puts "\n=== Available XML Files ==="
+  %w[FMPClients.xml FMPCases.xml FMPTasks.xml FMPContactInfo.xml].each do |file|
+    path = Rails.root.join(file)
+    if File.exist?(path)
+      doc = Nokogiri::XML(File.open(path))
+      row_count = doc.xpath('//xmlns:ROW', 'xmlns' => 'http://www.filemaker.com/fmpxmlresult').count
+      puts "✓ #{file}: #{row_count} records (#{(File.size(path) / 1024.0).round(1)} KB)"
+    else
+      puts "✗ #{file}: Not found"
+    end
+  end
+end
+
+def confirm_action(message)
+  print "#{message} (yes/no): "
+  response = STDIN.gets.chomp
+  response.downcase == 'yes' || response.downcase == 'y'
+end
+
+def run_import(command, options = {})
+  importer = FilemakerImporter.new
+  
+  case command
+  when 'all'
+    puts "Starting complete FileMaker import..."
+    puts "This will import: Clients → Jobs → Tasks → Contacts"
+    
+    return unless options[:dry_run] || confirm_action("Proceed with import?")
+    
+    if options[:dry_run]
+      puts "\n[DRY RUN MODE - No changes will be made]"
+    end
+    
+    unless options[:dry_run]
+      ['clients', 'jobs', 'tasks', 'contacts'].each do |entity|
+        run_import(entity, options)
+      end
+    else
+      import_status
+    end
+    
+  when 'clients'
+    file_path = Rails.root.join('FMPClients.xml')
+    if File.exist?(file_path)
+      puts "Importing clients from FMPClients.xml..."
+      unless options[:dry_run]
+        count = importer.import_clients(file_path)
+        puts "✓ Successfully imported #{count} clients"
+      else
+        puts "[DRY RUN] Would import clients from #{file_path}"
+      end
+    else
+      puts "✗ FMPClients.xml not found"
+    end
+    
+  when 'jobs'
+    file_path = Rails.root.join('FMPCases.xml')
+    if File.exist?(file_path)
+      puts "Importing jobs from FMPCases.xml..."
+      unless options[:dry_run]
+        count = importer.import_jobs(file_path)
+        puts "✓ Successfully imported #{count} jobs"
+      else
+        puts "[DRY RUN] Would import jobs from #{file_path}"
+      end
+    else
+      puts "✗ FMPCases.xml not found"
+    end
+    
+  when 'tasks'
+    file_path = Rails.root.join('FMPTasks.xml')
+    if File.exist?(file_path)
+      puts "Importing tasks from FMPTasks.xml..."
+      unless options[:dry_run]
+        count = importer.import_tasks(file_path)
+        puts "✓ Successfully imported #{count} tasks"
+      else
+        puts "[DRY RUN] Would import tasks from #{file_path}"
+      end
+    else
+      puts "✗ FMPTasks.xml not found"
+    end
+    
+  when 'contacts'
+    file_path = Rails.root.join('FMPContactInfo.xml')
+    if File.exist?(file_path)
+      puts "Importing contacts from FMPContactInfo.xml..."
+      unless options[:dry_run]
+        count = importer.import_contacts(file_path)
+        puts "✓ Successfully imported #{count} contact methods"
+      else
+        puts "[DRY RUN] Would import contacts from #{file_path}"
+      end
+    else
+      puts "✗ FMPContactInfo.xml not found"
+    end
+    
+  when 'clean'
+    puts "\n⚠️  WARNING: This will delete ALL data in the database!"
+    puts "This includes ALL records in: Clients, People, Jobs, Tasks, Contact Methods, and Notes"
+    puts "This is NOT limited to imported data - it will DELETE EVERYTHING"
+    
+    return unless confirm_action("Are you absolutely sure you want to delete ALL data?")
+    
+    print "Type 'DELETE ALL' to confirm total data deletion: "
+    response = STDIN.gets.chomp
+    unless response == 'DELETE ALL'
+      puts "Deletion cancelled."
+      return
+    end
+    
+    unless options[:dry_run]
+      ActiveRecord::Base.transaction do
+        Note.destroy_all
+        Task.destroy_all
+        Job.destroy_all
+        ContactMethod.destroy_all
+        Person.destroy_all
+        Client.destroy_all
+        puts "✓ All data has been deleted from the database"
+      end
+    else
+      puts "[DRY RUN] Would delete ALL data from the database"
+    end
+    
+  when 'status'
+    import_status
+    
+  else
+    puts "Unknown command: #{command}"
+    print_usage
+    exit 1
+  end
+end
+
+# Main execution
+if ARGV.empty?
+  print_usage
+  exit 0
+end
+
+command = ARGV[0]
+options = {
+  dry_run: ARGV.include?('--dry-run'),
+  verbose: ARGV.include?('--verbose')
+}
+
+begin
+  run_import(command, options)
+rescue => e
+  puts "\n✗ Error during import: #{e.message}"
+  puts e.backtrace.first(5) if options[:verbose]
+  exit 1
+end

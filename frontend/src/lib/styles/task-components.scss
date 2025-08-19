@@ -1,0 +1,472 @@
+/*
+ * Shared Task Component Styles (SCSS)
+ * 
+ * Converted to SCSS with DRY optimizations:
+ * - Eliminated repeated task selection styling (6+ instances → 1 mixin)
+ * - Consolidated dimension patterns (20px/20px → variables)
+ * - Organized with SASS nesting for better maintainability
+ * - Replaced repeated transitions with mixins
+ */
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+/* ===== CORE TASK ITEM LAYOUT ===== */
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  padding: #{$task-padding-y} #{$task-padding-x} #{$task-padding-y} #{$task-padding-left} !important;
+  padding-left: calc(#{$task-padding-left} + (var(--depth, 0) * #{$task-depth-offset})) !important;
+  border: none !important;
+  border-radius: $radius-lg !important;
+  background: none !important;
+  background-color: transparent !important;
+  @include transition-smooth(transform, $duration-slow);
+  transition-property: transform, height, margin, padding;
+  transition-timing-function: $easing-smooth, ease, ease, ease;
+  cursor: normal;
+  user-select: none;
+  position: relative;
+  will-change: transform;
+  overflow: visible;
+
+  // ===== INTERACTIVE STATES =====
+  
+  // Task deletion animation
+  &.task-deleting {
+    @include task-deletion-animation;
+  }
+
+  // Task dragging state with low opacity on content only
+  &.task-dragging > * {
+    opacity: $opacity-drag;
+  }
+
+  // Apply fade-in animation to content after dragging
+  &.task-drag-ending > * {
+    animation: fadeInFromDrag 1s ease forwards;
+  }
+
+  // Drag selection states
+  &.task-selected-for-drag {
+    background-color: rgba(0, 122, 255, 0.2) !important;
+    @include task-selected-state;
+  }
+
+  // ===== SELECTION STATES (DRY'd into single mixin) =====
+  &.selected,
+  &:has(.editable-title.editing),
+  &.multi-select-active.selected {
+    @include task-selected-state;
+  }
+
+  // ===== FLIP ANIMATION STYLES =====
+  &[data-flip-animating="true"] {
+    @include flip-animation-element;
+  }
+
+  // Smooth transform-only animations for reordering
+  &.animating-position {
+    @include transition-transform(300ms);
+  }
+
+  // ===== SELECTION BORDER RADIUS LOGIC =====
+  // Modern Safari solution: Reverse logic for perfect rounded corners
+  
+  &.selected {
+    border-radius: $radius-md !important;
+    
+    // Remove top rounding from tasks that have a selected task immediately before
+    + .task-item.selected {
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+    
+    // Remove bottom rounding from tasks that have a selected task immediately after
+    &:has(+ .task-item.selected) {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  // Handle selection continuity across animation containers
+  &.selected {
+    + .subtask-animation-container .task-item.selected:first-child {
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+    
+    &:has(+ .subtask-animation-container .task-item.selected:first-child) {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  // ===== COMPLETION STATES =====
+  &.completed {
+    .task-title,
+    .task-content {
+      opacity: $opacity-faded;
+      color: #8E8E93;
+    }
+  }
+
+  &.cancelled {
+    .task-title,
+    .task-content {
+      opacity: $opacity-faded;
+      color: #8E8E93;
+      text-decoration: line-through;
+      text-decoration-color: #8E8E93;
+      text-decoration-thickness: 1px;
+    }
+  }
+
+  // ===== RESPONSIVE BREAKPOINTS =====
+  @include tablet-down {
+    padding: #{$task-padding-y} !important;
+  }
+
+  @include touch-device {
+    min-height: $touch-target-min;
+    touch-action: manipulation;
+    
+    &::before {
+      content: '⋮⋮';
+      position: absolute;
+      right: $gap-lg;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      font-size: $font-size-md;
+      opacity: $opacity-muted;
+      pointer-events: none;
+    }
+  }
+}
+
+.task-content {
+  flex: 1;
+  min-width: 0;
+  @include flex-row();
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fadeInFromDrag {
+  from {
+    opacity: $opacity-drag;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== FLIP ANIMATION CONTAINERS ===== */
+
+.tasks-container[data-flip-active="true"] {
+  pointer-events: none;
+}
+
+/* ===== DISCLOSURE CONTROLS ===== */
+
+.disclosure-button {
+  @include flex-center;
+  @include square-element($disclosure-size);
+  background: none;
+  border: none;
+  cursor: normal;
+  padding: 0;
+  margin-top: 2px;
+  color: var(--text-tertiary);
+  @include transition-transform();
+
+  @include touch-device {
+    @include flexible-square($disclosure-size, $touch-target-min);
+  }
+
+  @include mobile-down {
+    @include square-element($icon-size-sm);
+  }
+}
+
+.chevron-icon {
+  @include square-element($icon-size-xs);
+  opacity: 0.7;
+  @include transition-transform();
+  transform: rotate(0deg);
+  
+  &.expanded,
+  .disclosure-button[aria-expanded="true"] & {
+    transform: rotate(90deg);
+  }
+}
+
+// Disable triangle transitions during auto-expansion
+.no-triangle-transitions .chevron-icon {
+  transition: none !important;
+}
+
+.disclosure-spacer {
+  @include square-element($disclosure-size);
+  flex-shrink: 0;
+  margin-top: 2px;
+
+  @include mobile-down {
+    @include square-element($icon-size-sm);
+  }
+}
+
+/* ===== TASK STATUS ===== */
+
+.task-status {
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  margin-left: 2px;
+  margin-right: $gap-md;
+}
+
+.status-emoji {
+  font-size: $font-size-base;
+  @include square-element($status-emoji-size);
+  @include flex-center;
+  cursor: normal;
+  @include transition-opacity();
+
+  @include mobile-down {
+    @include square-element(18px);
+    font-size: $font-size-sm;
+  }
+
+  @include touch-device {
+    @include flexible-square($status-emoji-size, $touch-target-min);
+  }
+}
+
+/* ===== TASK TITLE ===== */
+
+.task-title {
+  font-size: $font-size-lg;
+  color: #FFFFFF;
+  word-wrap: break-word;
+  font-weight: 400;
+  line-height: 1.3;
+  cursor: text;
+  outline: none;
+  display: inline-block;
+  min-width: 75px;
+  width: fit-content;
+  max-width: 100%;
+  user-select: text;
+
+  @include tablet-down {
+    font-size: $font-size-md;
+  }
+
+  @include mobile-down {
+    font-size: 15px;
+  }
+}
+
+// Non-editable state styling
+.task-item.non-editable .task-title {
+  cursor: default;
+  user-select: none;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.task-title-input {
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  width: fit-content;
+  min-width: 75px;
+  max-width: 100%;
+  resize: none;
+}
+
+/* ===== TASK ACTIONS ===== */
+
+.task-actions {
+  @include flex-row();
+  flex-shrink: 0;
+  margin-top: 2px;
+  pointer-events: none;
+  opacity: 0;
+
+  .task-item:hover &,
+  &:focus-within {
+    opacity: 1;
+  }
+}
+
+/* ===== NEW TASK ROW STYLING ===== */
+
+.task-item-add-new {
+  --text-color: var(--text-secondary, #8E8E93);
+
+  .task-status {
+    margin-right: $gap-md;
+  }
+
+  .add-task-placeholder {
+    color: var(--text-color);
+    cursor: normal;
+    @include transition-smooth(color);
+    @include transition-opacity();
+    opacity: $opacity-muted;
+  }
+
+  // Always show full opacity on row hover
+  &:hover .add-task-placeholder {
+    opacity: 1;
+  }
+
+  // Desktop hover states
+  @include desktop-hover {
+    &:hover {
+      --text-color: var(--accent-blue, #007AFF);
+      
+      .add-task-placeholder {
+        color: var(--text-color);
+      }
+    }
+    
+    // Hide label by default when list has tasks (desktop only)
+    &:not(.is-empty-list) .add-task-placeholder {
+      opacity: 0;
+      
+      // Show label on hover when list has tasks
+      .task-item-add-new:hover & {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Mobile styles - always show label
+  @include touch-device {
+    .add-task-placeholder {
+      opacity: $opacity-muted;
+      
+      // Never hide text on mobile
+      &.hide-on-hover {
+        opacity: $opacity-muted !important;
+        pointer-events: auto !important;
+      }
+    }
+    
+    &:active {
+      --text-color: var(--accent-blue, #007AFF);
+      
+      .add-task-placeholder {
+        opacity: 1 !important;
+        color: var(--text-color);
+        
+        &.hide-on-hover {
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+
+  .status-emoji {
+    cursor: default;
+    
+    img {
+      transition: none;
+      opacity: $opacity-secondary;
+    }
+    
+    &:hover {
+      opacity: inherit;
+      transform: none;
+      background: none;
+      cursor: default;
+    }
+  }
+
+  &:hover .status-emoji img {
+    opacity: 1;
+  }
+}
+
+/* ===== TIME TRACKING ===== */
+
+.time-tracking {
+  @include flex-row($gap-sm);
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  opacity: $opacity-secondary;
+}
+
+.time-icon {
+  font-size: $font-size-xs;
+}
+
+.time-duration {
+  &.in-progress {
+    color: var(--accent-green, #32D74B);
+    font-weight: 500;
+  }
+}
+
+/* ===== TASK METADATA ===== */
+
+.task-metadata {
+  @include flex-row();
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.assigned-indicator {
+  @include flex-center;
+  @include square-element($icon-size-lg);
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.notes-indicator {
+  @include flex-row(#{$gap-xs});
+  font-size: $font-size-xs;
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+.notes-icon {
+  font-size: 10px;
+}
+
+.notes-count {
+  font-weight: 500;
+}
+
+/* ===== ACCESSIBILITY & REDUCED MOTION ===== */
+
+@include no-motion {
+  .task-item,
+  .task-item.animating-position {
+    transition: none !important;
+  }
+}
+
+@include high-contrast {
+  .task-item {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    &.selected {
+      @include task-selected-state;
+    }
+  }
+}

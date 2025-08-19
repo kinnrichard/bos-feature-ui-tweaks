@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Load test environment variables if .env.test exists
+if [ -f ".env.test" ]; then
+  echo "Loading test environment variables from .env.test..."
+  set -a
+  . .env.test
+  set +a
+  echo "✅ ZERO_AUTH_SECRET loaded for test: ${ZERO_AUTH_SECRET}"
+fi
+
+# Set default test ports if not already set
+export RAILS_TEST_PORT=${RAILS_TEST_PORT:-4000}
+export ZERO_TEST_PORT=${ZERO_TEST_PORT:-4850}
+export FRONTEND_TEST_PORT=${FRONTEND_TEST_PORT:-6173}
+export ZERO_UPSTREAM_DB=${ZERO_UPSTREAM_DB:-"postgresql://claude@localhost:5432/bos_test"}
+export ZERO_AUTH_SECRET=${ZERO_AUTH_SECRET:-"dev-secret-change-in-production"}
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+# Regenerate models for test environment
+RAILS_ENV=test rails generate zero:active_models
+
+exec foreman start -f Procfile.test "$@"

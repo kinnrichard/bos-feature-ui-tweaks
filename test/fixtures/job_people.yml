@@ -1,0 +1,14 @@
+# Job-person associations
+# Updated to reference existing jobs from jobs.yml
+
+network_infrastructure_alice:
+  job: network_infrastructure
+  person: alice_johnson
+
+home_wifi_john:
+  job: home_wifi
+  person: john_doe
+
+server_migration_bob:
+  job: server_migration
+  person: bob_wilson

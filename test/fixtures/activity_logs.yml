@@ -1,0 +1,18 @@
+# Activity logs for testing
+
+client_created:
+  user: admin
+  action: created
+  loggable: acme (Client)
+  client: acme
+  metadata: {}
+
+job_updated:
+  user: technician
+  action: updated
+  loggable: empty_project (Job)
+  client: acme
+  job: empty_project
+  metadata: 
+    changes:
+      status: [0, 1]

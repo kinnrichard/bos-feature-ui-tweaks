@@ -1,0 +1,70 @@
+{
+  "projectName": "BOS (Business Operating System)",
+  "projectType": "fullstack",
+  "frameworks": ["rails", "svelte", "zero"],
+  
+  // "hooks": {
+  //   "PostToolUse": [
+  //     {
+  //       "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+  //       "hooks": [
+  //         {
+  //           "type": "command",
+  //           "command": "./scripts/claude-lint-hook-posttool.sh"
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
+  
+  "linting": {
+    "enabled": true,
+    "enforceBeforeSave": true,
+    "stopOnFirstError": true,
+    "showInline": true,
+    "autoFixOnSave": false,
+    "sharedConfigPath": "./scripts/lint-config.sh",
+    "contexts": {
+      "backend": {
+        "workingDirectory": ".",
+        "linters": ["rubocop"],
+        "filePatterns": ["*.rb"]
+      },
+      "frontend": {
+        "workingDirectory": "./frontend",
+        "linters": ["eslint", "prettier"],
+        "filePatterns": ["*.js", "*.ts", "*.jsx", "*.tsx", "*.svelte"]
+      }
+    }
+  },
+  
+  "codeQuality": {
+    "enforceStandards": true,
+    "requireTests": false,
+    "requireDocumentation": false,
+    "maxComplexity": null
+  },
+  
+  "workflow": {
+    "pauseOnLintFailure": true,
+    "showProgressIndicators": true,
+    "logLevel": "info"
+  },
+  
+  "integration": {
+    "git": {
+      "useSharedHooks": true,
+      "hookPath": "./scripts/hooks/"
+    },
+    "npm": {
+      "lintCommand": "npm run lint",
+      "fixCommand": "npm run lint:fix"
+    }
+  },
+  
+  "debugging": {
+    "enableVerboseLogging": false,
+    "showConfigValidation": true,
+    "showHookExecution": true
+  }
+}

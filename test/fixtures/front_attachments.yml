@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  front_message: one
+  filename: MyString
+  content_type: MyString
+  url: MyString
+  size: 1
+  metadata: 
+
+two:
+  front_message: two
+  filename: MyString
+  content_type: MyString
+  url: MyString
+  size: 1
+  metadata: 

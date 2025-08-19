@@ -1,0 +1,1 @@
+Company domains should match even if a Person isn't set up

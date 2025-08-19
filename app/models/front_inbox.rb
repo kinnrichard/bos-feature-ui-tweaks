@@ -1,0 +1,2 @@
+class FrontInbox < ApplicationRecord
+end

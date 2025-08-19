@@ -1,0 +1,101 @@
+# Zero cache server configuration
+# https://zero.rocicorp.dev/docs/deployment
+
+development:
+  # Primary database (existing Rails database)
+  primary_db:
+    host: <%= ENV.fetch("DB_HOST", "localhost") %>
+    port: <%= ENV.fetch("DB_PORT", 5432) %>
+    database: <%= ENV.fetch("DB_NAME", "bos_development") %>
+    user: <%= ENV.fetch("DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("DB_PASSWORD", "") %>
+    
+  # CVR (Conflict-free replicated database) for Zero
+  cvr_db:
+    host: <%= ENV.fetch("ZERO_CVR_DB_HOST", "localhost") %>
+    port: <%= ENV.fetch("ZERO_CVR_DB_PORT", 5432) %>
+    database: <%= ENV.fetch("ZERO_CVR_DB_NAME", "bos_zero_cvr_development") %>
+    user: <%= ENV.fetch("ZERO_CVR_DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("ZERO_CVR_DB_PASSWORD", "") %>
+    
+  # CDB (Change database) for Zero
+  cdb_db:
+    host: <%= ENV.fetch("ZERO_CDB_DB_HOST", "localhost") %>
+    port: <%= ENV.fetch("ZERO_CDB_DB_PORT", 5432) %>
+    database: <%= ENV.fetch("ZERO_CDB_DB_NAME", "bos_zero_cdb_development") %>
+    user: <%= ENV.fetch("ZERO_CDB_DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("ZERO_CDB_DB_PASSWORD", "") %>
+  
+  # Zero authentication
+  auth_secret: <%= ENV.fetch("ZERO_AUTH_SECRET", "dev-secret-change-in-production") %>
+  
+  # Zero cache configuration
+  cache:
+    log_level: "info"
+    port: <%= ENV.fetch("ZERO_CACHE_PORT", 4848) %>
+    
+  # WebSocket configuration
+  websocket:
+    port: <%= ENV.fetch("ZERO_WS_PORT", 4849) %>
+
+test:
+  primary_db:
+    host: localhost
+    port: 5432
+    database: bos_test
+    user: <%= ENV['USER'] || ENV['USERNAME'] %>
+    password: ""
+    
+  cvr_db:
+    host: localhost
+    port: 5432
+    database: bos_zero_cvr_test
+    user: <%= ENV['USER'] || ENV['USERNAME'] %>
+    password: ""
+    
+  cdb_db:
+    host: localhost
+    port: 5432
+    database: bos_zero_cdb_test
+    user: <%= ENV['USER'] || ENV['USERNAME'] %>
+    password: ""
+  
+  auth_secret: <%= ENV.fetch("ZERO_AUTH_SECRET", "dev-secret-change-in-production") %>
+  
+  cache:
+    log_level: "warn"
+    port: 4850
+    
+  websocket:
+    port: 4851
+
+production:
+  primary_db:
+    host: <%= ENV.fetch("DB_HOST") %>
+    port: <%= ENV.fetch("DB_PORT", 5432) %>
+    database: <%= ENV.fetch("DB_NAME") %>
+    user: <%= ENV.fetch("DB_USER") %>
+    password: <%= ENV.fetch("DB_PASSWORD") %>
+    
+  cvr_db:
+    host: <%= ENV.fetch("ZERO_CVR_DB_HOST") %>
+    port: <%= ENV.fetch("ZERO_CVR_DB_PORT", 5432) %>
+    database: <%= ENV.fetch("ZERO_CVR_DB_NAME") %>
+    user: <%= ENV.fetch("ZERO_CVR_DB_USER") %>
+    password: <%= ENV.fetch("ZERO_CVR_DB_PASSWORD") %>
+    
+  cdb_db:
+    host: <%= ENV.fetch("ZERO_CDB_DB_HOST") %>
+    port: <%= ENV.fetch("ZERO_CDB_DB_PORT", 5432) %>
+    database: <%= ENV.fetch("ZERO_CDB_DB_NAME") %>
+    user: <%= ENV.fetch("ZERO_CDB_DB_USER") %>
+    password: <%= ENV.fetch("ZERO_CDB_DB_PASSWORD") %>
+  
+  auth_secret: <%= ENV.fetch("ZERO_AUTH_SECRET") %>
+  
+  cache:
+    log_level: "error"
+    port: <%= ENV.fetch("ZERO_CACHE_PORT", 4848) %>
+    
+  websocket:
+    port: <%= ENV.fetch("ZERO_WS_PORT", 4849) %>

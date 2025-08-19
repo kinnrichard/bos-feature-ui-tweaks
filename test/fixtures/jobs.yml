@@ -1,0 +1,46 @@
+# Test jobs that match the actual database schema
+
+network_infrastructure:
+  client: acme
+  title: Network Infrastructure Setup
+  description: Complete network setup for new office location
+  status: "open"
+  priority: 1  # high
+  starts_at: <%= Date.current.beginning_of_day.change(hour: 9) %>
+  start_time_set: true
+
+home_wifi:
+  client: smith_family
+  title: Home WiFi Installation
+  description: Install and configure home WiFi system
+  status: "in_progress"
+  priority: 2  # normal
+  starts_at: <%= Date.current.beginning_of_day.change(hour: 10) %>
+  start_time_set: true
+
+server_migration:
+  client: office_complex
+  title: Server Migration Project
+  description: Migrate on-premise servers to cloud infrastructure
+  status: "open"
+  priority: 0  # critical
+  starts_at: <%= 1.week.from_now.to_date.beginning_of_day.change(hour: 8) %>
+  start_time_set: true
+
+security_upgrade:
+  client: johnson_home
+  title: Security System Upgrade
+  description: Upgrade home security and network monitoring
+  status: "successfully_completed"
+  priority: 2  # normal
+  starts_at: <%= 1.week.ago.to_date.beginning_of_day.change(hour: 9) %>
+  start_time_set: true
+
+empty_project:
+  client: techstartup
+  title: Empty Project Template
+  description: Empty project for testing task creation
+  status: "open"
+  priority: 3  # low
+  starts_at: <%= 2.weeks.from_now.to_date.beginning_of_day.change(hour: 10) %>
+  start_time_set: true

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedulable: simple_website_job (Job)
+  scheduled_type: due
+  scheduled_at: <%= Time.zone.parse("2025-06-21 14:00:00") %>
+  scheduled_time_set: true
+  notes: Initial due date
+
+two:
+  schedulable: enterprise_deployment (Job)
+  scheduled_type: start
+  scheduled_at: <%= Time.zone.parse("2025-06-22 09:00:00") %>
+  scheduled_time_set: true
+  notes: Start time for job

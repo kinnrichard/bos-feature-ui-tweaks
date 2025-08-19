@@ -1,0 +1,5 @@
+{"timestamp": "2025-07-30T21:51:54.879320", "level": "INFO", "component": "runner", "message": "Initializing SimpleClaudeRunner"}
+{"timestamp": "2025-07-30T21:51:55.025978", "level": "INFO", "component": "session", "message": "Starting interactive session"}
+{"timestamp": "2025-07-30T21:51:55.026051", "level": "INFO", "component": "deployment", "message": "Starting agent deployment"}
+{"timestamp": "2025-07-30T21:51:55.029322", "level": "INFO", "component": "deployment", "message": "Agent deployment successful: 8 deployed, 0 updated"}
+{"timestamp": "2025-07-30T21:51:55.029489", "level": "INFO", "component": "session", "message": "Launching Claude interactive mode"}

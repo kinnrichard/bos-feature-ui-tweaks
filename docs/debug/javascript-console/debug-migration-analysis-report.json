@@ -1,0 +1,2776 @@
+{
+  "generatedAt": "2025-07-26T07:04:21.517Z",
+  "version": "1.0.0",
+  "overview": {
+    "totalFiles": 317,
+    "filesWithDebug": 53,
+    "totalDebugCalls": 362,
+    "functionUsage": {
+      "debugAPI": {
+        "count": 67,
+        "files": [
+          "frontend/src/lib/api/client.ts",
+          "frontend/src/lib/api/csrf.ts",
+          "frontend/src/lib/components/ApiTest.svelte",
+          "frontend/src/lib/utils/debug/browser.ts",
+          "frontend/src/lib/utils/debug/compatibility.ts",
+          "frontend/src/lib/utils/debug/implementation-test.ts",
+          "frontend/src/lib/utils/debug/index.ts",
+          "frontend/src/lib/utils/debug/namespaces.ts",
+          "frontend/src/lib/utils/debug/types.ts",
+          "frontend/src/service-worker.ts",
+          "frontend/tests/helpers/search-page.ts",
+          "frontend/tests/security/debug-security.spec.ts",
+          "scripts/eslint-debug-migration-rule.js",
+          "scripts/migrate-debug-calls.js"
+        ],
+        "variants": {
+          "basic": 52,
+          "warn": 8,
+          "error": 7
+        }
+      },
+      "debugAuth": {
+        "count": 48,
+        "files": [
+          "frontend/src/lib/api/auth.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-basic.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+          "frontend/src/lib/utils/debug/browser.ts",
+          "frontend/src/lib/utils/debug/compatibility.ts",
+          "frontend/src/lib/utils/debug/implementation-test.ts",
+          "frontend/src/lib/utils/debug/index.ts",
+          "frontend/src/lib/utils/debug/namespaces.ts",
+          "frontend/src/lib/zero/zero-client.ts",
+          "frontend/src/routes/(authenticated)/+layout.svelte",
+          "frontend/tests/auth.setup.ts",
+          "scripts/eslint-debug-migration-rule.js"
+        ],
+        "variants": {
+          "basic": 17,
+          "warn": 4,
+          "error": 27
+        }
+      },
+      "debugSecurity": {
+        "count": 4,
+        "files": [
+          "frontend/tests/security/api-security.spec.ts",
+          "frontend/tests/security/debug-security.spec.ts"
+        ],
+        "variants": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugIntegration": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugWebSocket": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugDatabase": {
+        "count": 77,
+        "files": [
+          "frontend/src/lib/models/base/scoped-query-base.ts",
+          "frontend/src/lib/models/migration/epic-008-migration.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+          "frontend/src/lib/zero/client.ts",
+          "frontend/src/lib/zero/model-queries.ts",
+          "frontend/src/lib/zero/reactive-query-unified.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.ts",
+          "frontend/src/lib/zero/runes.svelte.ts",
+          "frontend/src/lib/zero/zero-client.ts",
+          "frontend/src/lib/zero/zero-config.ts",
+          "frontend/src/lib/zero/zero-errors.ts",
+          "frontend/src/routes/(authenticated)/zero-test/+page.svelte",
+          "scripts/migrate-debug-calls.js"
+        ],
+        "variants": {
+          "basic": 52,
+          "warn": 10,
+          "error": 15
+        }
+      },
+      "debugCache": {
+        "count": 1,
+        "files": [
+          "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts"
+        ],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1
+        }
+      },
+      "debugValidation": {
+        "count": 4,
+        "files": [
+          "frontend/src/lib/utils/rails-validation.test.ts"
+        ],
+        "variants": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugReactive": {
+        "count": 32,
+        "files": [
+          "frontend/src/lib/utils/persisted-store.ts",
+          "frontend/src/lib/zero/model-queries.ts",
+          "frontend/src/lib/zero/reactive-query-unified.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.ts",
+          "frontend/src/lib/zero/runes.svelte.ts",
+          "frontend/src/routes/(authenticated)/jobs/+page.svelte"
+        ],
+        "variants": {
+          "basic": 32,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugState": {
+        "count": 4,
+        "files": [
+          "frontend/tests/e2e/context-aware-search.spec.ts",
+          "frontend/tests/helpers/search-page.ts"
+        ],
+        "variants": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugComponent": {
+        "count": 64,
+        "files": [
+          "frontend/src/lib/components/jobs/JobDetailView.svelte",
+          "frontend/src/lib/components/jobs/TaskList.svelte",
+          "frontend/src/lib/components/layout/JobStatusButton.svelte",
+          "frontend/src/lib/components/layout/SchedulePriorityEditPopover.svelte",
+          "frontend/src/lib/components/layout/Toolbar.svelte",
+          "frontend/src/lib/components/tasks/TaskInfoPopover.svelte",
+          "frontend/src/lib/components/ui/BasePopover.svelte",
+          "frontend/src/lib/components/ui/Portal.svelte",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+          "frontend/src/lib/utils/debug/index.ts",
+          "frontend/src/lib/utils/popover-utils.ts",
+          "frontend/src/routes/(authenticated)/jobs/+page.svelte",
+          "frontend/tests/e2e/context-aware-search.spec.ts",
+          "frontend/tests/e2e/homepage-search.spec.ts",
+          "frontend/tests/e2e/smoke.e2e.spec.ts",
+          "frontend/tests/helpers/config.ts",
+          "frontend/tests/helpers/search-page.ts"
+        ],
+        "variants": {
+          "basic": 46,
+          "warn": 5,
+          "error": 13
+        }
+      },
+      "debugNavigation": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugNotification": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugWorkflow": {
+        "count": 34,
+        "files": [
+          "frontend/src/lib/components/jobs/TaskList.svelte",
+          "frontend/src/lib/components/layout/JobStatusButton.svelte",
+          "frontend/src/lib/components/layout/TechnicianAssignmentButton.svelte",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+          "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+          "frontend/src/lib/utils/debug/compatibility.ts",
+          "frontend/src/lib/utils/debug/namespaces.ts"
+        ],
+        "variants": {
+          "basic": 11,
+          "warn": 3,
+          "error": 20
+        }
+      },
+      "debugSearch": {
+        "count": 1,
+        "files": [
+          "frontend/src/lib/components/layout/Toolbar.svelte"
+        ],
+        "variants": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugUpload": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugExport": {
+        "count": 0,
+        "files": [],
+        "variants": {
+          "basic": 0,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugPerformance": {
+        "count": 1,
+        "files": [
+          "frontend/src/lib/utils/position-calculator.ts"
+        ],
+        "variants": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0
+        }
+      },
+      "debugError": {
+        "count": 25,
+        "files": [
+          "frontend/src/lib/components/ApiTest.svelte",
+          "frontend/src/lib/components/layout/JobStatusButton.svelte",
+          "frontend/src/lib/zero/reactive-query-unified.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.svelte.ts",
+          "frontend/src/lib/zero/reactive-query.ts",
+          "frontend/src/lib/zero/runes.svelte.ts",
+          "frontend/src/lib/zero/zero-client.ts",
+          "frontend/tests/auth.setup.ts"
+        ],
+        "variants": {
+          "basic": 25,
+          "warn": 0,
+          "error": 0
+        }
+      }
+    },
+    "hotspots": [
+      {
+        "file": "frontend/src/lib/api/client.ts",
+        "calls": 16,
+        "functions": 1
+      },
+      {
+        "file": "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+        "calls": 11,
+        "functions": 3
+      },
+      {
+        "file": "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+        "calls": 26,
+        "functions": 5
+      },
+      {
+        "file": "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+        "calls": 13,
+        "functions": 4
+      },
+      {
+        "file": "frontend/src/lib/utils/debug/namespaces.ts",
+        "calls": 12,
+        "functions": 3
+      },
+      {
+        "file": "frontend/src/lib/utils/persisted-store.ts",
+        "calls": 10,
+        "functions": 1
+      },
+      {
+        "file": "frontend/src/lib/zero/reactive-query.svelte.ts",
+        "calls": 28,
+        "functions": 3
+      },
+      {
+        "file": "frontend/src/lib/zero/reactive-query.ts",
+        "calls": 24,
+        "functions": 3
+      },
+      {
+        "file": "frontend/src/lib/zero/runes.svelte.ts",
+        "calls": 14,
+        "functions": 3
+      },
+      {
+        "file": "frontend/src/lib/zero/zero-client.ts",
+        "calls": 10,
+        "functions": 3
+      },
+      {
+        "file": "frontend/tests/auth.setup.ts",
+        "calls": 13,
+        "functions": 2
+      },
+      {
+        "file": "frontend/tests/helpers/search-page.ts",
+        "calls": 20,
+        "functions": 3
+      }
+    ]
+  },
+  "fileAnalysis": [
+    {
+      "path": "frontend/src/lib/api/auth.ts",
+      "size": 2239,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 0,
+          "warn": 0,
+          "error": 4,
+          "total": 4
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAuth } from '$lib/utils/debug'",
+          "functions": [
+            "debugAuth"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "api",
+      "totalCalls": 4
+    },
+    {
+      "path": "frontend/src/lib/api/client.ts",
+      "size": 12516,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 16,
+          "warn": 0,
+          "error": 0,
+          "total": 16
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI } from '$lib/utils/debug'",
+          "functions": [
+            "debugAPI"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "api",
+      "totalCalls": 16
+    },
+    {
+      "path": "frontend/src/lib/api/csrf.ts",
+      "size": 3930,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 9,
+          "warn": 0,
+          "error": 0,
+          "total": 9
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI } from '$lib/utils/debug'",
+          "functions": [
+            "debugAPI"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "api",
+      "totalCalls": 9
+    },
+    {
+      "path": "frontend/src/lib/components/ApiTest.svelte",
+      "size": 2624,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 5,
+          "warn": 0,
+          "error": 0,
+          "total": 5
+        },
+        "debugError": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugAPI",
+            "debugError"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 7
+    },
+    {
+      "path": "frontend/src/lib/components/jobs/JobDetailView.svelte",
+      "size": 3224,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 3,
+          "warn": 0,
+          "error": 1,
+          "total": 4
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 4
+    },
+    {
+      "path": "frontend/src/lib/components/jobs/TaskList.svelte",
+      "size": 73693,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 0,
+          "warn": 1,
+          "error": 0,
+          "total": 1
+        },
+        "debugWorkflow": {
+          "basic": 0,
+          "warn": 1,
+          "error": 7,
+          "total": 8
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugWorkflow, debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugWorkflow",
+            "debugComponent"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 9
+    },
+    {
+      "path": "frontend/src/lib/components/layout/JobStatusButton.svelte",
+      "size": 5046,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugWorkflow": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        },
+        "debugError": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent, debugWorkflow, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent",
+            "debugWorkflow",
+            "debugError"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 6
+    },
+    {
+      "path": "frontend/src/lib/components/layout/SchedulePriorityEditPopover.svelte",
+      "size": 7932,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/components/layout/TechnicianAssignmentButton.svelte",
+      "size": 9297,
+      "debugCalls": {
+        "debugWorkflow": {
+          "basic": 6,
+          "warn": 0,
+          "error": 1,
+          "total": 7
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugWorkflow } from '$lib/utils/debug'",
+          "functions": [
+            "debugWorkflow"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 7
+    },
+    {
+      "path": "frontend/src/lib/components/layout/Toolbar.svelte",
+      "size": 12681,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0,
+          "total": 4
+        },
+        "debugSearch": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugSearch, debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugSearch",
+            "debugComponent"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 5
+    },
+    {
+      "path": "frontend/src/lib/components/tasks/TaskInfoPopover.svelte",
+      "size": 26950,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 7,
+          "warn": 0,
+          "error": 2,
+          "total": 9
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug/namespaces'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 9
+    },
+    {
+      "path": "frontend/src/lib/components/ui/BasePopover.svelte",
+      "size": 12122,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/components/ui/Portal.svelte",
+      "size": 2391,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 0,
+          "warn": 1,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "component",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/models/base/scoped-query-base.ts",
+      "size": 18866,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 1,
+          "error": 1,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase } from '../../utils/debug'",
+          "functions": [
+            "debugDatabase"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "model",
+      "totalCalls": 2
+    },
+    {
+      "path": "frontend/src/lib/models/migration/epic-008-migration.ts",
+      "size": 13917,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 2,
+          "error": 1,
+          "total": 3
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase } from '../../utils/debug'",
+          "functions": [
+            "debugDatabase"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "model",
+      "totalCalls": 3
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/__tests__/epic-015-basic.test.ts",
+      "size": 2559,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        }
+      },
+      "imports": [],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+      "size": 15559,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 1,
+          "error": 3,
+          "total": 4
+        },
+        "debugComponent": {
+          "basic": 0,
+          "warn": 2,
+          "error": 2,
+          "total": 4
+        },
+        "debugWorkflow": {
+          "basic": 0,
+          "warn": 0,
+          "error": 3,
+          "total": 3
+        }
+      },
+      "imports": [],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 11
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+      "size": 20625,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 1,
+          "warn": 0,
+          "error": 8,
+          "total": 9
+        },
+        "debugDatabase": {
+          "basic": 1,
+          "warn": 2,
+          "error": 4,
+          "total": 7
+        },
+        "debugCache": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        },
+        "debugComponent": {
+          "basic": 0,
+          "warn": 1,
+          "error": 3,
+          "total": 4
+        },
+        "debugWorkflow": {
+          "basic": 0,
+          "warn": 0,
+          "error": 5,
+          "total": 5
+        }
+      },
+      "imports": [],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 26
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+      "size": 15282,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 0,
+          "warn": 0,
+          "error": 5,
+          "total": 5
+        },
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        },
+        "debugComponent": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        },
+        "debugWorkflow": {
+          "basic": 0,
+          "warn": 0,
+          "error": 2,
+          "total": 2
+        }
+      },
+      "imports": [],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 9
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+      "size": 22152,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 0,
+          "warn": 0,
+          "error": 6,
+          "total": 6
+        },
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 0,
+          "error": 4,
+          "total": 4
+        },
+        "debugComponent": {
+          "basic": 0,
+          "warn": 0,
+          "error": 2,
+          "total": 2
+        },
+        "debugWorkflow": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        }
+      },
+      "imports": [],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 13
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/browser.ts",
+      "size": 15469,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 2,
+          "warn": 2,
+          "error": 2,
+          "total": 6
+        },
+        "debugAuth": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI, debugAuth } from \"./debug\"",
+          "functions": [
+            "debugAPI",
+            "debugAuth"
+          ],
+          "legacyCount": 2
+        },
+        {
+          "raw": "import { debugNetwork } from \"./debug\"",
+          "functions": [
+            "debugNetwork"
+          ],
+          "legacyCount": 0
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 7
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/compatibility.ts",
+      "size": 10843,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 2,
+          "warn": 1,
+          "error": 0,
+          "total": 3
+        },
+        "debugAuth": {
+          "basic": 1,
+          "warn": 0,
+          "error": 1,
+          "total": 2
+        },
+        "debugWorkflow": {
+          "basic": 1,
+          "warn": 1,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 7
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/implementation-test.ts",
+      "size": 11873,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 2,
+          "warn": 1,
+          "error": 1,
+          "total": 4
+        },
+        "debugAuth": {
+          "basic": 0,
+          "warn": 1,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 5
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/index.ts",
+      "size": 2917,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugAuth": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugComponent": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugNetwork, debugData, debugUI } from './debug'",
+          "functions": [
+            "debugNetwork",
+            "debugData",
+            "debugUI"
+          ],
+          "legacyCount": 0
+        },
+        {
+          "raw": "import { debugAPI, debugAuth, debugComponent } from './debug'",
+          "functions": [
+            "debugAPI",
+            "debugAuth",
+            "debugComponent"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 3
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/namespaces.ts",
+      "size": 11565,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 3,
+          "warn": 1,
+          "error": 1,
+          "total": 5
+        },
+        "debugAuth": {
+          "basic": 1,
+          "warn": 2,
+          "error": 1,
+          "total": 4
+        },
+        "debugWorkflow": {
+          "basic": 1,
+          "warn": 1,
+          "error": 1,
+          "total": 3
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI, debugAuth } from './debug'",
+          "functions": [
+            "debugAPI",
+            "debugAuth"
+          ],
+          "legacyCount": 2
+        },
+        {
+          "raw": "import { debugNetwork, debugData } from './debug'",
+          "functions": [
+            "debugNetwork",
+            "debugData"
+          ],
+          "legacyCount": 0
+        },
+        {
+          "raw": "import { debugAPI, debugNetwork } from './debug'",
+          "functions": [
+            "debugAPI",
+            "debugNetwork"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 12
+    },
+    {
+      "path": "frontend/src/lib/utils/debug/types.ts",
+      "size": 9984,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 1,
+          "warn": 1,
+          "error": 1,
+          "total": 3
+        }
+      },
+      "imports": [],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 3
+    },
+    {
+      "path": "frontend/src/lib/utils/persisted-store.ts",
+      "size": 9446,
+      "debugCalls": {
+        "debugReactive": {
+          "basic": 10,
+          "warn": 0,
+          "error": 0,
+          "total": 10
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugReactive } from './debug'",
+          "functions": [
+            "debugReactive"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 10
+    },
+    {
+      "path": "frontend/src/lib/utils/popover-utils.ts",
+      "size": 4821,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from './debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/utils/position-calculator.ts",
+      "size": 9029,
+      "debugCalls": {
+        "debugPerformance": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugPerformance } from '$lib/utils/debug'",
+          "functions": [
+            "debugPerformance"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "utility",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/lib/utils/rails-validation.test.ts",
+      "size": 6599,
+      "debugCalls": {
+        "debugValidation": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0,
+          "total": 4
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugValidation } from './debug'",
+          "functions": [
+            "debugValidation"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 4
+    },
+    {
+      "path": "frontend/src/lib/zero/client.ts",
+      "size": 8647,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 2,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 2
+    },
+    {
+      "path": "frontend/src/lib/zero/model-queries.ts",
+      "size": 5008,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        },
+        "debugReactive": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugReactive } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugReactive"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 6
+    },
+    {
+      "path": "frontend/src/lib/zero/reactive-query-unified.svelte.ts",
+      "size": 9012,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        },
+        "debugReactive": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugError": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugReactive, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugReactive",
+            "debugError"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 6
+    },
+    {
+      "path": "frontend/src/lib/zero/reactive-query.svelte.ts",
+      "size": 17173,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 16,
+          "warn": 0,
+          "error": 0,
+          "total": 16
+        },
+        "debugReactive": {
+          "basic": 8,
+          "warn": 0,
+          "error": 0,
+          "total": 8
+        },
+        "debugError": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0,
+          "total": 4
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugReactive, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugReactive",
+            "debugError"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 28
+    },
+    {
+      "path": "frontend/src/lib/zero/reactive-query.ts",
+      "size": 20692,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 15,
+          "warn": 0,
+          "error": 0,
+          "total": 15
+        },
+        "debugReactive": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        },
+        "debugError": {
+          "basic": 6,
+          "warn": 0,
+          "error": 0,
+          "total": 6
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugPerformance, debugError, debugReactive } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugPerformance",
+            "debugError",
+            "debugReactive"
+          ],
+          "legacyCount": 4
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 24
+    },
+    {
+      "path": "frontend/src/lib/zero/runes.svelte.ts",
+      "size": 6613,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 6,
+          "warn": 0,
+          "error": 0,
+          "total": 6
+        },
+        "debugReactive": {
+          "basic": 6,
+          "warn": 0,
+          "error": 0,
+          "total": 6
+        },
+        "debugError": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugReactive, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugReactive",
+            "debugError"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 14
+    },
+    {
+      "path": "frontend/src/lib/zero/zero-client.ts",
+      "size": 14229,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        },
+        "debugDatabase": {
+          "basic": 6,
+          "warn": 0,
+          "error": 0,
+          "total": 6
+        },
+        "debugError": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugAuth, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugAuth",
+            "debugError"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 10
+    },
+    {
+      "path": "frontend/src/lib/zero/zero-config.ts",
+      "size": 8470,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 2,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 2
+    },
+    {
+      "path": "frontend/src/lib/zero/zero-errors.ts",
+      "size": 11519,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 0,
+          "warn": 0,
+          "error": 1,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/routes/(authenticated)/+layout.svelte",
+      "size": 7266,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 2,
+          "warn": 0,
+          "error": 1,
+          "total": 3
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAuth, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugAuth",
+            "debugError"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 3
+    },
+    {
+      "path": "frontend/src/routes/(authenticated)/jobs/+page.svelte",
+      "size": 4000,
+      "debugCalls": {
+        "debugReactive": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugComponent": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent, debugReactive } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent",
+            "debugReactive"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 2
+    },
+    {
+      "path": "frontend/src/routes/(authenticated)/zero-test/+page.svelte",
+      "size": 9578,
+      "debugCalls": {
+        "debugDatabase": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugDatabase, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugDatabase",
+            "debugError"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/src/service-worker.ts",
+      "size": 2726,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI } from '$lib/utils/debug'",
+          "functions": [
+            "debugAPI"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/tests/auth.setup.ts",
+      "size": 3354,
+      "debugCalls": {
+        "debugAuth": {
+          "basic": 8,
+          "warn": 0,
+          "error": 0,
+          "total": 8
+        },
+        "debugError": {
+          "basic": 5,
+          "warn": 0,
+          "error": 0,
+          "total": 5
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAuth, debugError } from '$lib/utils/debug'",
+          "functions": [
+            "debugAuth",
+            "debugError"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 13
+    },
+    {
+      "path": "frontend/tests/e2e/context-aware-search.spec.ts",
+      "size": 10087,
+      "debugCalls": {
+        "debugState": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugComponent": {
+          "basic": 5,
+          "warn": 0,
+          "error": 0,
+          "total": 5
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent, debugState } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent",
+            "debugState"
+          ],
+          "legacyCount": 2
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 6
+    },
+    {
+      "path": "frontend/tests/e2e/homepage-search.spec.ts",
+      "size": 18359,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 4,
+          "warn": 0,
+          "error": 0,
+          "total": 4
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 4
+    },
+    {
+      "path": "frontend/tests/e2e/smoke.e2e.spec.ts",
+      "size": 23735,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 6,
+          "warn": 0,
+          "error": 0,
+          "total": 6
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent"
+          ],
+          "legacyCount": 1
+        }
+      ],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 6
+    },
+    {
+      "path": "frontend/tests/helpers/config.ts",
+      "size": 10380,
+      "debugCalls": {
+        "debugComponent": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 1
+    },
+    {
+      "path": "frontend/tests/helpers/search-page.ts",
+      "size": 12525,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 5,
+          "warn": 0,
+          "error": 0,
+          "total": 5
+        },
+        "debugState": {
+          "basic": 3,
+          "warn": 0,
+          "error": 0,
+          "total": 3
+        },
+        "debugComponent": {
+          "basic": 12,
+          "warn": 0,
+          "error": 0,
+          "total": 12
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugComponent, debugAPI, debugState } from '$lib/utils/debug'",
+          "functions": [
+            "debugComponent",
+            "debugAPI",
+            "debugState"
+          ],
+          "legacyCount": 3
+        }
+      ],
+      "complexity": "complex",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 20
+    },
+    {
+      "path": "frontend/tests/security/api-security.spec.ts",
+      "size": 8369,
+      "debugCalls": {
+        "debugSecurity": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 2
+    },
+    {
+      "path": "frontend/tests/security/debug-security.spec.ts",
+      "size": 3567,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        },
+        "debugSecurity": {
+          "basic": 2,
+          "warn": 0,
+          "error": 0,
+          "total": 2
+        }
+      },
+      "imports": [],
+      "complexity": "simple",
+      "migrationEffort": "low",
+      "dependencies": [],
+      "testFile": true,
+      "category": "test",
+      "totalCalls": 3
+    },
+    {
+      "path": "scripts/eslint-debug-migration-rule.js",
+      "size": 9737,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 2,
+          "warn": 1,
+          "error": 1,
+          "total": 4
+        },
+        "debugAuth": {
+          "basic": 0,
+          "warn": 1,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [
+        {
+          "raw": "import { debugAPI, debugAuth } from '$lib/utils/debug'",
+          "functions": [
+            "debugAPI",
+            "debugAuth"
+          ],
+          "legacyCount": 2
+        },
+        {
+          "raw": "import { debugNetwork } from '$lib/utils/debug'",
+          "functions": [
+            "debugNetwork"
+          ],
+          "legacyCount": 0
+        }
+      ],
+      "complexity": "moderate",
+      "migrationEffort": "high",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 5
+    },
+    {
+      "path": "scripts/migrate-debug-calls.js",
+      "size": 25992,
+      "debugCalls": {
+        "debugAPI": {
+          "basic": 2,
+          "warn": 1,
+          "error": 1,
+          "total": 4
+        },
+        "debugDatabase": {
+          "basic": 1,
+          "warn": 0,
+          "error": 0,
+          "total": 1
+        }
+      },
+      "imports": [],
+      "complexity": "moderate",
+      "migrationEffort": "medium",
+      "dependencies": [],
+      "testFile": false,
+      "category": "other",
+      "totalCalls": 5
+    }
+  ],
+  "categoryBreakdown": {
+    "network": {
+      "functions": [
+        {
+          "name": "debugAPI",
+          "calls": 67,
+          "files": 14,
+          "targetMethod": "api"
+        },
+        {
+          "name": "debugAuth",
+          "calls": 48,
+          "files": 14,
+          "targetMethod": "auth"
+        },
+        {
+          "name": "debugSecurity",
+          "calls": 4,
+          "files": 2,
+          "targetMethod": "security"
+        }
+      ],
+      "totalCalls": 119,
+      "uniqueFiles": 23
+    },
+    "data": {
+      "functions": [
+        {
+          "name": "debugDatabase",
+          "calls": 77,
+          "files": 17,
+          "targetMethod": "database"
+        },
+        {
+          "name": "debugCache",
+          "calls": 1,
+          "files": 1,
+          "targetMethod": "cache"
+        },
+        {
+          "name": "debugValidation",
+          "calls": 4,
+          "files": 1,
+          "targetMethod": "validation"
+        },
+        {
+          "name": "debugReactive",
+          "calls": 32,
+          "files": 7,
+          "targetMethod": "reactive"
+        },
+        {
+          "name": "debugState",
+          "calls": 4,
+          "files": 2,
+          "targetMethod": "state"
+        }
+      ],
+      "totalCalls": 118,
+      "uniqueFiles": 22
+    },
+    "ui": {
+      "functions": [
+        {
+          "name": "debugComponent",
+          "calls": 64,
+          "files": 20,
+          "targetMethod": "component"
+        }
+      ],
+      "totalCalls": 64,
+      "uniqueFiles": 20
+    },
+    "business": {
+      "functions": [
+        {
+          "name": "debugWorkflow",
+          "calls": 34,
+          "files": 9,
+          "targetMethod": "workflow"
+        },
+        {
+          "name": "debugSearch",
+          "calls": 1,
+          "files": 1,
+          "targetMethod": "search"
+        }
+      ],
+      "totalCalls": 35,
+      "uniqueFiles": 10
+    },
+    "monitor": {
+      "functions": [
+        {
+          "name": "debugPerformance",
+          "calls": 1,
+          "files": 1,
+          "targetMethod": "performance"
+        },
+        {
+          "name": "debugError",
+          "calls": 25,
+          "files": 8,
+          "targetMethod": "error"
+        }
+      ],
+      "totalCalls": 26,
+      "uniqueFiles": 9
+    }
+  },
+  "complexityAssessment": {
+    "overall": "high",
+    "factors": {
+      "totalCalls": 362,
+      "affectedFiles": 53,
+      "complexFiles": 11,
+      "hotspots": 12,
+      "testFilesCoverage": 16
+    },
+    "risks": [
+      "Multiple hotspot files with heavy debug usage",
+      "High proportion of complex files requiring migration"
+    ],
+    "mitigations": [
+      "Migrate in small batches (5-10 files per batch)",
+      "Start with simple files to build confidence",
+      "Create comprehensive test suite before migration"
+    ]
+  },
+  "migrationPriority": [
+    {
+      "rank": 1,
+      "file": "frontend/tests/e2e/smoke.e2e.spec.ts",
+      "score": 76,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 6,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 2,
+      "file": "frontend/tests/e2e/context-aware-search.spec.ts",
+      "score": 75,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 6,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 3,
+      "file": "frontend/tests/auth.setup.ts",
+      "score": 73,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 13,
+      "category": "test",
+      "rationale": "test file (safer to migrate), high debug usage, few unique functions"
+    },
+    {
+      "rank": 4,
+      "file": "frontend/src/lib/utils/rails-validation.test.ts",
+      "score": 72,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 4,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 5,
+      "file": "frontend/tests/e2e/homepage-search.spec.ts",
+      "score": 72,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 4,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 6,
+      "file": "frontend/tests/security/debug-security.spec.ts",
+      "score": 69,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 3,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 7,
+      "file": "frontend/tests/security/api-security.spec.ts",
+      "score": 68,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 2,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 8,
+      "file": "frontend/src/routes/(authenticated)/zero-test/+page.svelte",
+      "score": 66,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 1,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 9,
+      "file": "frontend/tests/helpers/config.ts",
+      "score": 66,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 1,
+      "category": "test",
+      "rationale": "simple complexity, test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 10,
+      "file": "frontend/src/lib/utils/persisted-store.ts",
+      "score": 64,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 10,
+      "category": "utility",
+      "rationale": "high debug usage, utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 11,
+      "file": "frontend/src/lib/utils/debug/implementation-test.ts",
+      "score": 63,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 5,
+      "category": "test",
+      "rationale": "test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 12,
+      "file": "frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts",
+      "score": 62,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 11,
+      "category": "test",
+      "rationale": "test file (safer to migrate), high debug usage, few unique functions"
+    },
+    {
+      "rank": 13,
+      "file": "frontend/tests/helpers/search-page.ts",
+      "score": 62,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 20,
+      "category": "test",
+      "rationale": "test file (safer to migrate), high debug usage, few unique functions"
+    },
+    {
+      "rank": 14,
+      "file": "frontend/src/lib/utils/debug/__tests__/epic-015-security.test.ts",
+      "score": 61,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 13,
+      "category": "test",
+      "rationale": "test file (safer to migrate), high debug usage"
+    },
+    {
+      "rank": 15,
+      "file": "frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+      "score": 60,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 26,
+      "category": "test",
+      "rationale": "test file (safer to migrate), high debug usage"
+    },
+    {
+      "rank": 16,
+      "file": "frontend/src/lib/utils/debug/__tests__/epic-015-performance.test.ts",
+      "score": 59,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 9,
+      "category": "test",
+      "rationale": "test file (safer to migrate)"
+    },
+    {
+      "rank": 17,
+      "file": "frontend/src/lib/utils/debug/index.ts",
+      "score": 58,
+      "effort": "high",
+      "complexity": "simple",
+      "calls": 3,
+      "category": "utility",
+      "rationale": "simple complexity, utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 18,
+      "file": "frontend/src/lib/utils/debug/browser.ts",
+      "score": 57,
+      "effort": "high",
+      "complexity": "moderate",
+      "calls": 7,
+      "category": "utility",
+      "rationale": "utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 19,
+      "file": "frontend/src/lib/utils/debug/__tests__/epic-015-basic.test.ts",
+      "score": 56,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 1,
+      "category": "test",
+      "rationale": "test file (safer to migrate), few unique functions"
+    },
+    {
+      "rank": 20,
+      "file": "frontend/src/lib/utils/debug/compatibility.ts",
+      "score": 56,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 7,
+      "category": "utility",
+      "rationale": "utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 21,
+      "file": "frontend/src/lib/utils/position-calculator.ts",
+      "score": 56,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 1,
+      "category": "utility",
+      "rationale": "simple complexity, utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 22,
+      "file": "frontend/src/lib/components/ApiTest.svelte",
+      "score": 52,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 7,
+      "category": "component",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 23,
+      "file": "frontend/src/lib/utils/debug/namespaces.ts",
+      "score": 52,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 12,
+      "category": "utility",
+      "rationale": "high debug usage, utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 24,
+      "file": "frontend/src/lib/utils/debug/types.ts",
+      "score": 50,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 3,
+      "category": "utility",
+      "rationale": "utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 25,
+      "file": "frontend/src/lib/zero/model-queries.ts",
+      "score": 50,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 6,
+      "category": "other",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 26,
+      "file": "frontend/src/lib/components/layout/JobStatusButton.svelte",
+      "score": 49,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 6,
+      "category": "component",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 27,
+      "file": "frontend/src/lib/zero/reactive-query-unified.svelte.ts",
+      "score": 49,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 6,
+      "category": "other",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 28,
+      "file": "frontend/src/lib/components/layout/Toolbar.svelte",
+      "score": 48,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 5,
+      "category": "component",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 29,
+      "file": "frontend/src/lib/api/csrf.ts",
+      "score": 47,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 9,
+      "category": "api",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 30,
+      "file": "frontend/src/lib/zero/runes.svelte.ts",
+      "score": 47,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 14,
+      "category": "other",
+      "rationale": "high debug usage, few unique functions"
+    },
+    {
+      "rank": 31,
+      "file": "frontend/src/lib/zero/zero-client.ts",
+      "score": 47,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 10,
+      "category": "other",
+      "rationale": "high debug usage, few unique functions"
+    },
+    {
+      "rank": 32,
+      "file": "frontend/src/lib/utils/popover-utils.ts",
+      "score": 46,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 1,
+      "category": "utility",
+      "rationale": "utility file (good foundation), few unique functions"
+    },
+    {
+      "rank": 33,
+      "file": "frontend/src/lib/components/layout/TechnicianAssignmentButton.svelte",
+      "score": 43,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 7,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 34,
+      "file": "frontend/src/routes/(authenticated)/jobs/+page.svelte",
+      "score": 42,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 2,
+      "category": "other",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 35,
+      "file": "frontend/src/lib/components/ui/BasePopover.svelte",
+      "score": 41,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 1,
+      "category": "component",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 36,
+      "file": "frontend/src/service-worker.ts",
+      "score": 41,
+      "effort": "low",
+      "complexity": "simple",
+      "calls": 1,
+      "category": "other",
+      "rationale": "simple complexity, few unique functions"
+    },
+    {
+      "rank": 37,
+      "file": "frontend/src/lib/api/client.ts",
+      "score": 39,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 16,
+      "category": "api",
+      "rationale": "high debug usage, few unique functions"
+    },
+    {
+      "rank": 38,
+      "file": "scripts/eslint-debug-migration-rule.js",
+      "score": 38,
+      "effort": "high",
+      "complexity": "moderate",
+      "calls": 5,
+      "category": "other",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 39,
+      "file": "scripts/migrate-debug-calls.js",
+      "score": 38,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 5,
+      "category": "other",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 40,
+      "file": "frontend/src/lib/api/auth.ts",
+      "score": 37,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 4,
+      "category": "api",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 41,
+      "file": "frontend/src/lib/components/jobs/JobDetailView.svelte",
+      "score": 37,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 4,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 42,
+      "file": "frontend/src/lib/components/tasks/TaskInfoPopover.svelte",
+      "score": 37,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 9,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 43,
+      "file": "frontend/src/lib/zero/reactive-query.svelte.ts",
+      "score": 37,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 28,
+      "category": "other",
+      "rationale": "high debug usage, few unique functions"
+    },
+    {
+      "rank": 44,
+      "file": "frontend/src/lib/zero/reactive-query.ts",
+      "score": 37,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 24,
+      "category": "other",
+      "rationale": "high debug usage, few unique functions"
+    },
+    {
+      "rank": 45,
+      "file": "frontend/src/lib/components/jobs/TaskList.svelte",
+      "score": 36,
+      "effort": "high",
+      "complexity": "complex",
+      "calls": 9,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 46,
+      "file": "frontend/src/lib/models/migration/epic-008-migration.ts",
+      "score": 35,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 3,
+      "category": "model",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 47,
+      "file": "frontend/src/routes/(authenticated)/+layout.svelte",
+      "score": 35,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 3,
+      "category": "other",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 48,
+      "file": "frontend/src/lib/models/base/scoped-query-base.ts",
+      "score": 33,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 2,
+      "category": "model",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 49,
+      "file": "frontend/src/lib/zero/client.ts",
+      "score": 33,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 2,
+      "category": "other",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 50,
+      "file": "frontend/src/lib/zero/zero-config.ts",
+      "score": 33,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 2,
+      "category": "other",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 51,
+      "file": "frontend/src/lib/components/layout/SchedulePriorityEditPopover.svelte",
+      "score": 31,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 1,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 52,
+      "file": "frontend/src/lib/components/ui/Portal.svelte",
+      "score": 31,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 1,
+      "category": "component",
+      "rationale": "few unique functions"
+    },
+    {
+      "rank": 53,
+      "file": "frontend/src/lib/zero/zero-errors.ts",
+      "score": 31,
+      "effort": "medium",
+      "complexity": "moderate",
+      "calls": 1,
+      "category": "other",
+      "rationale": "few unique functions"
+    }
+  ],
+  "recommendations": {
+    "strategy": "Gradual migration with extensive testing",
+    "phases": [
+      {
+        "name": "Phase 1: Foundation (High Priority)",
+        "files": 10,
+        "description": "Migrate simple files and utilities to establish patterns",
+        "duration": "1-2 days"
+      },
+      {
+        "name": "Phase 2: Core Implementation (Medium Priority)",
+        "files": 28,
+        "description": "Migrate main application logic and components",
+        "duration": "3-5 days"
+      },
+      {
+        "name": "Phase 3: Complex Cases (Low Priority)",
+        "files": 15,
+        "description": "Handle complex files and edge cases",
+        "duration": "2-3 days"
+      }
+    ],
+    "focus": [
+      {
+        "category": "network",
+        "priority": "high",
+        "calls": 119,
+        "files": 23,
+        "reason": "Highest usage with 119 calls across 23 files"
+      },
+      {
+        "category": "data",
+        "priority": "high",
+        "calls": 118,
+        "files": 22,
+        "reason": "Highest usage with 118 calls across 22 files"
+      },
+      {
+        "category": "ui",
+        "priority": "high",
+        "calls": 64,
+        "files": 20,
+        "reason": "Highest usage with 64 calls across 20 files"
+      }
+    ],
+    "cautions": [
+      "Handle hotspot files carefully: frontend/src/lib/api/client.ts, frontend/src/lib/utils/debug/__tests__/epic-015-integration.test.ts, frontend/src/lib/utils/debug/__tests__/epic-015-migration.test.ts",
+      "11 complex files require extra attention and testing"
+    ]
+  },
+  "timeline": {
+    "estimatedDuration": "27 days",
+    "phases": [
+      {
+        "name": "Phase 1: Foundation (High Priority)",
+        "files": 10,
+        "description": "Migrate simple files and utilities to establish patterns",
+        "duration": "1-2 days"
+      },
+      {
+        "name": "Phase 2: Core Implementation (Medium Priority)",
+        "files": 28,
+        "description": "Migrate main application logic and components",
+        "duration": "3-5 days"
+      },
+      {
+        "name": "Phase 3: Complex Cases (Low Priority)",
+        "files": 15,
+        "description": "Handle complex files and edge cases",
+        "duration": "2-3 days"
+      }
+    ],
+    "milestones": [
+      {
+        "day": 9,
+        "milestone": "Phase 1 Complete - Foundation established"
+      },
+      {
+        "day": 19,
+        "milestone": "Phase 2 Complete - Core migration done"
+      },
+      {
+        "day": 27,
+        "milestone": "Phase 3 Complete - Migration finished"
+      }
+    ],
+    "dailyTargets": {
+      "simple": 1,
+      "moderate": 1,
+      "complex": 1
+    }
+  }
+}

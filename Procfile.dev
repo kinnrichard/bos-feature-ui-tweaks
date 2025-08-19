@@ -1,0 +1,4 @@
+ruby: env RUBY_DEBUG_OPEN=true OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES bin/rails server -p 3000 -b 0.0.0.0
+vite: cd frontend && npm run dev
+jobs: bundle exec good_job start --max-threads=1 --poll-interval=1 --enable-cron
+zero: npx zero-cache-dev

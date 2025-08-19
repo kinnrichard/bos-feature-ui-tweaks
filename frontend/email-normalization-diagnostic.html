@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Normalization Diagnostic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .test-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .result {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+        .info { background: #d1ecf1; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Normalization Diagnostic Tool</h1>
+    
+    <p>This tool helps diagnose email normalization issues. Enter an email address below:</p>
+    
+    <input 
+        type="text" 
+        id="emailInput" 
+        class="test-input" 
+        placeholder="Enter email address (e.g., user@example.com)"
+        value="user@example.com"
+    >
+    
+    <button onclick="runTests()">Test Normalization</button>
+    
+    <div id="results"></div>
+
+    <script type="module">
+        // Inline implementation of the normalizer for testing
+        function normalizeContact(value) {
+            if (!value?.trim()) return null;
+
+            const trimmed = value.trim();
+
+            // Email detection and normalization
+            if (trimmed.match(/^[^@\s]+@[^@\s]+$/)) {
+                return {
+                    value: trimmed,
+                    normalized_value: trimmed.toLowerCase(),
+                    contact_type: 'email',
+                };
+            }
+
+            // Phone detection would go here (simplified for this test)
+            const digits = trimmed.replace(/\D/g, '');
+            if (digits.length >= 10 && digits.length <= 15) {
+                return {
+                    value: trimmed,
+                    normalized_value: '+1' + digits,
+                    contact_type: 'phone',
+                };
+            }
+
+            // Address as fallback
+            return {
+                value: trimmed,
+                normalized_value: trimmed,
+                contact_type: 'address',
+            };
+        }
+
+        function normalizeEmail(value) {
+            if (!value?.trim()) return null;
+            return value.toLowerCase().trim();
+        }
+
+        window.runTests = function() {
+            const input = document.getElementById('emailInput').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            // Test 1: Input validation
+            addResult('Input Analysis', `
+                Original input: "${input}"
+                Length: ${input.length}
+                Trimmed: "${input.trim()}"
+                Has @ symbol: ${input.includes('@')}
+                Has spaces: ${input.includes(' ')}
+            `, 'info');
+
+            // Test 2: Regex matching
+            const emailRegex = /^[^@\s]+@[^@\s]+$/;
+            const strictEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            addResult('Regex Tests', `
+                Basic email regex: ${emailRegex.test(input.trim()) ? '✅ MATCH' : '❌ NO MATCH'}
+                Strict email regex: ${strictEmailRegex.test(input.trim()) ? '✅ MATCH' : '❌ NO MATCH'}
+            `, emailRegex.test(input.trim()) ? 'success' : 'error');
+
+            // Test 3: normalizeContact function
+            try {
+                const normalized = normalizeContact(input);
+                addResult('normalizeContact Result', 
+                    normalized ? JSON.stringify(normalized, null, 2) : 'null',
+                    normalized && normalized.contact_type === 'email' ? 'success' : 'error'
+                );
+            } catch (e) {
+                addResult('normalizeContact Error', e.message, 'error');
+            }
+
+            // Test 4: normalizeEmail function
+            try {
+                const emailResult = normalizeEmail(input);
+                addResult('normalizeEmail Result', 
+                    emailResult ? `"${emailResult}"` : 'null',
+                    emailResult ? 'success' : 'error'
+                );
+            } catch (e) {
+                addResult('normalizeEmail Error', e.message, 'error');
+            }
+
+            // Test 5: Common issues
+            const issues = [];
+            if (input !== input.trim()) {
+                issues.push('Input has leading/trailing whitespace');
+            }
+            if (input.includes(' ')) {
+                issues.push('Input contains spaces (invalid for email)');
+            }
+            if (!input.includes('@')) {
+                issues.push('Input missing @ symbol');
+            }
+            if (input.split('@').length !== 2) {
+                issues.push('Input has multiple @ symbols or missing parts');
+            }
+            
+            if (issues.length > 0) {
+                addResult('Potential Issues', issues.join('\n'), 'error');
+            } else {
+                addResult('Validation', 'No obvious issues detected', 'success');
+            }
+        };
+
+        function addResult(title, content, className = '') {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result ' + className;
+            resultDiv.innerHTML = `
+                <h3>${title}</h3>
+                <pre>${content}</pre>
+            `;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        // Run tests on load
+        window.onload = () => runTests();
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+ruby.test: RAILS_ENV=test ZERO_AUTH_SECRET=${ZERO_AUTH_SECRET:-dev-secret-change-in-production} bin/rails server -p ${RAILS_TEST_PORT:-4000} -b 0.0.0.0
+vite.test: cd frontend && npm run dev -- --port ${FRONTEND_TEST_PORT:-6173}
+jobs.test: RAILS_ENV=test bundle exec good_job start --max-threads=1 --poll-interval=1
+zero.test: ZERO_UPSTREAM_DB=${ZERO_UPSTREAM_DB:-postgresql://claude@localhost:5432/bos_test} ZERO_AUTH_SECRET=${ZERO_AUTH_SECRET:-dev-secret-change-in-production} npx zero-cache-dev --port ${ZERO_TEST_PORT:-4850}

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  front_id: MyString
+  name: MyString
+  inbox_type: MyString
+  handle: MyString
+  settings: 
+  api_links: 
+
+two:
+  front_id: MyString
+  name: MyString
+  inbox_type: MyString
+  handle: MyString
+  settings: 
+  api_links: 

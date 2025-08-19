@@ -1,0 +1,67 @@
+<tr class="sync-log-row <%= 'table-danger' if log.status == 'error' %>">
+  <td>
+    <%= link_to admin_front_sync_monitor_path(log), class: "text-decoration-none" do %>
+      <%= log.created_at.strftime("%m/%d %H:%M") %>
+    <% end %>
+  </td>
+  
+  <td>
+    <span class="badge badge-info">
+      <%= log.sync_type.titleize %>
+    </span>
+  </td>
+  
+  <td>
+    <%= log.user&.email || log.user&.name || "System" %>
+  </td>
+  
+  <td>
+    <% case log.status %>
+    <% when 'success' %>
+      <span class="badge badge-success">Success</span>
+    <% when 'error' %>
+      <span class="badge badge-danger">Error</span>
+    <% when 'running' %>
+      <span class="badge badge-warning">Running</span>
+    <% else %>
+      <span class="badge badge-secondary"><%= log.status.titleize %></span>
+    <% end %>
+  </td>
+  
+  <td>
+    <% if log.started_at && log.completed_at %>
+      <%= distance_of_time_in_words(log.started_at, log.completed_at) %>
+    <% elsif log.started_at %>
+      <span class="text-muted">Running...</span>
+    <% else %>
+      <span class="text-muted">-</span>
+    <% end %>
+  </td>
+  
+  <td>
+    <% if log.records_processed %>
+      <small>
+        <%= pluralize(log.records_processed, 'record') %>
+        <% if log.records_failed && log.records_failed > 0 %>
+          <span class="text-danger">(<%= log.records_failed %> failed)</span>
+        <% end %>
+      </small>
+    <% else %>
+      <span class="text-muted">-</span>
+    <% end %>
+  </td>
+  
+  <td>
+    <%= link_to "View", admin_front_sync_monitor_path(log), 
+        class: "btn btn-sm btn-outline-primary" %>
+    
+    <% if log.status == 'error' && log.error_message.present? %>
+      <button type="button" 
+              class="btn btn-sm btn-outline-danger" 
+              data-toggle="tooltip" 
+              title="<%= truncate(log.error_message, length: 100) %>">
+        Error
+      </button>
+    <% end %>
+  </td>
+</tr>

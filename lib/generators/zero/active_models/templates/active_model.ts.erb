@@ -1,0 +1,75 @@
+/**
+ * <%= class_name %> - ActiveRecord model (non-reactive)
+ *
+ * Promise-based Rails-compatible model for <%= table_name %> table.
+ * Use this for server-side code, Node.js scripts, or non-reactive contexts.
+ *
+ * For reactive Svelte components, use Reactive<%= class_name %> instead:
+ * ```typescript
+ * import { Reactive<%= class_name %> as <%= class_name %> } from './reactive-<%= kebab_name %>';
+ * ```
+ */
+
+import { createActiveRecord } from './base/active-record';
+import type { <%= class_name %>Data, Create<%= class_name %>Data, Update<%= class_name %>Data } from './types/<%= kebab_name %>-data';<%= relationship_import_section %><% if has_polymorphic %>
+<%= polymorphic_import %><% end %>
+<% if has_defaults %>
+/**
+ * Default values for <%= class_name %> creation
+ * These defaults match the database schema defaults
+ */
+const <%= class_name %>Defaults: Partial<Create<%= class_name %>Data> = <%= defaults_object %>;
+<% end %>
+/**
+ * ActiveRecord configuration for <%= class_name %>
+ */
+const <%= class_name %>Config = {
+  tableName: '<%= table_name %>',
+  className: '<%= class_name %>',
+  primaryKey: 'id',
+  supportsDiscard: <%= supports_discard %>,<% if has_defaults %>
+  defaults: <%= class_name %>Defaults,<% end %>
+};
+
+/**
+ * <%= class_name %> ActiveRecord instance
+ *
+ * @example
+ * ```typescript
+ * // Find by ID (throws if not found)
+ * const <%= model_name %> = await <%= class_name %>.find('123');
+ *
+ * // Find by conditions (returns null if not found)
+ * const <%= model_name %> = await <%= class_name %>.findBy({ title: 'Test' });
+ *
+ * // Create new record
+ * const new<%= class_name %> = await <%= class_name %>.create({ title: 'New Task' });
+ *
+ * // Update existing record
+ * const updated<%= class_name %> = await <%= class_name %>.update('123', { title: 'Updated' });
+ *
+ * // Soft delete (discard gem)
+ * await <%= class_name %>.discard('123');
+ *
+ * // Restore discarded
+ * await <%= class_name %>.undiscard('123');
+ *
+ * // Query with scopes
+ * const all<%= class_name %>s = await <%= class_name %>.all().all();
+ * const active<%= class_name %>s = await <%= class_name %>.kept().all();<%= discard_scopes %>
+ * ```
+ */
+export const <%= class_name %> = createActiveRecord<<%= class_name %>Data>(<%= class_name %>Config);
+
+<% if has_polymorphic %>
+<%= polymorphic_static_block %>
+
+<% end %>
+// Epic-009: Register model relationships for includes() functionality
+<%= relationship_registration %>
+
+// Export types for convenience
+export type { <%= class_name %>Data, Create<%= class_name %>Data, Update<%= class_name %>Data };
+
+// Default export
+export default <%= class_name %>;

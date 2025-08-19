@@ -1,0 +1,158 @@
+I'll help you understand the best approaches for showing large datasets to clients and pagination concepts. Let me first read the Zero documentation you provided, then search for current best practices.Based on the Zero documentation and current best practices for handling large datasets, there are several excellent approaches for showing large datasets to clients, with robust pagination concepts built right into Zero.
+
+## Zero's Built-in Pagination Features
+
+Zero provides comprehensive pagination capabilities that are both powerful and intuitive:
+
+### Cursor-Based Pagination with `start()` and `limit()`
+
+Zero supports cursor-based pagination using the `start()` method for efficient paging through large datasets:
+
+```tsx
+let start: IssueRow | undefined;
+while (true) {
+  let q = z.query.issue.orderBy('created', 'desc').limit(100);
+  if (start) {
+    q = q.start(start);
+  }
+  const batch = await q.run();
+  console.log('got batch', batch);
+
+  if (batch.length < 100) {
+    break;
+  }
+  start = batch[batch.length - 1];
+}
+```
+
+The `start()` method is exclusive by default (returns rows after the reference row), which is perfect for pagination. You can also use `{inclusive: true}` if needed.
+
+### Background Queries and TTL
+
+Zero's query lifecycle includes sophisticated background query management with TTL (time-to-live) settings:
+
+```tsx
+const [user] = useQuery(z.query.user.where('id', userId), {ttl: '1d'});
+```
+
+This keeps frequently accessed data cached for smooth navigation between pages.
+
+### Client Capacity Management
+
+Zero has a default soft limit of 20,000 rows on the client-side (about 20MB), which can be increased to 100,000 rows if needed. This prevents performance issues while maintaining a responsive local-first experience.
+
+### Preloading for Large Datasets
+
+Zero provides a `preload()` helper to avoid materializing large result sets into JS objects unnecessarily:
+
+```tsx
+z.query.issue
+  .related('creator')
+  .related('assignee') 
+  .related('labels')
+  .orderBy('created', 'desc')
+  .limit(1000)
+  .preload({ttl: 'forever'});
+```
+
+## Current Pagination Best Practices
+
+### Choose the Right Pagination Strategy
+
+Based on how frequently data changes and the volume of data that's stored, you'll want to adopt a specific type of pagination. For example, when a data set changes frequently and is large, it might be best to use cursor-based pagination.
+
+The main strategies are:
+
+1. **Cursor-Based Pagination** - Most efficient for large, changing datasets
+2. **Offset-Based Pagination** - Simple but less efficient for large offsets  
+3. **Keyset Pagination** - Usually considered the best choice for paginating ordered records in high-traffic web servers
+
+### Include Pagination Metadata
+
+Include metadata in the API response, such as the total count, the number of pages, and the next/previous page or cursor:
+
+```json
+{
+  "items": [...],
+  "page": 2,
+  "pageSize": 50,
+  "totalItems": 1500,
+  "totalPages": 30,
+  "_links": {
+    "self": "/api/products?page=2",
+    "next": "/api/products?page=3",
+    "prev": "/api/products?page=1"
+  }
+}
+```
+
+## Frontend Optimization: Virtual Scrolling
+
+For displaying large lists in the UI, virtual scrolling (windowing) is extremely effective:
+
+### React Window for Performance
+
+List virtualization, or "windowing", is the concept of only rendering what is visible to the user. The number of elements that are rendered at first is a very small subset of the entire list and the "window" of visible content moves when the user continues to scroll.
+
+```tsx
+import { FixedSizeList as List } from 'react-window';
+
+const VirtualizedList = () => {
+  return (
+    <List
+      height={500}
+      itemCount={items.length}
+      itemSize={35}
+      width="100%"
+    >
+      {Row}
+    </List>
+  );
+};
+```
+
+### When to Use Virtual Scrolling
+
+Virtual scrolling provides a seamless experience for continuous data streams (social media feeds), large data sets (thousands of items), and performance optimization by keeping the DOM size minimal.
+
+## Recommended Architecture
+
+For Zero applications, I recommend this approach:
+
+1. **Use Zero's built-in pagination** with `start()` and `limit()` for data fetching
+2. **Implement background queries** with appropriate TTL for smooth navigation
+3. **Preload frequently accessed data** using `preload()` with `ttl: 'forever'`
+4. **Use virtual scrolling** on the frontend for large lists (react-window or @tanstack/react-virtual)
+5. **Combine with infinite scrolling** when appropriate for endless feeds
+
+### Example Implementation
+
+```tsx
+// Preload common data
+useEffect(() => {
+  z.query.issue
+    .orderBy('created', 'desc')
+    .limit(1000)
+    .preload({ttl: 'forever'});
+}, []);
+
+// Paginated query with background caching
+const [issues] = useQuery(
+  z.query.issue
+    .orderBy('created', 'desc')
+    .limit(50)
+    .start(cursor), 
+  {ttl: '1d'}
+);
+
+// Virtual scrolling for display
+<FixedSizeList
+  height={600}
+  itemCount={issues.length}
+  itemSize={50}
+>
+  {IssueRow}
+</FixedSizeList>
+```
+
+This approach leverages Zero's strengths while following current best practices for optimal performance and user experience with large datasets.

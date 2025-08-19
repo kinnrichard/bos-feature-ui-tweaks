@@ -1,0 +1,10 @@
+{"timestamp": "2025-08-06T10:06:54.595864", "level": "INFO", "component": "runner", "message": "Initializing SimpleClaudeRunner"}
+{"timestamp": "2025-08-06T10:06:54.736113", "level": "INFO", "component": "session", "message": "Starting interactive session"}
+{"timestamp": "2025-08-06T10:06:54.736185", "level": "INFO", "component": "deployment", "message": "Starting agent deployment"}
+{"timestamp": "2025-08-06T10:06:54.737846", "level": "INFO", "component": "deployment", "message": "Agent deployment successful: 1 deployed, 0 updated"}
+{"timestamp": "2025-08-06T10:06:54.738001", "level": "INFO", "component": "session", "message": "Launching Claude interactive mode"}
+{"timestamp": "2025-08-06T11:59:22.095318", "level": "INFO", "component": "runner", "message": "Initializing SimpleClaudeRunner"}
+{"timestamp": "2025-08-06T11:59:22.240395", "level": "INFO", "component": "session", "message": "Starting interactive session"}
+{"timestamp": "2025-08-06T11:59:22.240471", "level": "INFO", "component": "deployment", "message": "Starting agent deployment"}
+{"timestamp": "2025-08-06T11:59:22.241331", "level": "INFO", "component": "deployment", "message": "All agents already up to date"}
+{"timestamp": "2025-08-06T11:59:22.241439", "level": "INFO", "component": "session", "message": "Launching Claude interactive mode"}

@@ -1,0 +1,74 @@
+// SASS Variables and Design Tokens
+// Centralized design system values extracted from existing CSS
+
+// ===== DIMENSIONS =====
+$icon-size-xs: 12px;
+$icon-size-sm: 16px;
+$icon-size-md: 20px;  // Most common size (disclosure, status, etc)
+$icon-size-lg: 24px;
+$icon-size-xl: 44px;  // Touch targets
+
+// Common element dimensions
+$disclosure-size: $icon-size-md;
+$status-emoji-size: $icon-size-md;
+$touch-target-min: $icon-size-xl;
+
+// ===== SPACING =====
+$gap-xs: 2px;
+$gap-sm: 4px;
+$gap-md: 6px;
+$gap-lg: 8px;
+$gap-xl: 12px;
+$gap-xxl: 16px;
+
+// Task-specific spacing
+$task-padding-y: 4px;
+$task-padding-x: 6px;
+$task-padding-left: 4px;
+$task-depth-offset: 26px;
+
+// ===== TYPOGRAPHY =====
+$font-size-xs: 11px;
+$font-size-sm: 12px;
+$font-size-base: 14px;  // Most common
+$font-size-md: 16px;
+$font-size-lg: 17px;    // Task titles
+$font-size-xl: 28px;    // Page headers
+
+// ===== COLORS =====
+// Using CSS custom properties for runtime theming
+// But defining SASS variables for calculations
+
+// Core colors (from app.css)
+$accent-blue: #00a3ff;
+$accent-green: #32d74b;
+$accent-red: #ff453a;
+$text-shadow-selection: 0.5px 0.5px 2px rgba(0, 0, 0, 0.75);
+
+// ===== TRANSITIONS =====
+$duration-fast: 0.15s;
+$duration-normal: 0.2s;
+$duration-slow: 0.3s;
+
+$easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+$easing-standard: ease;
+
+// ===== BORDER RADIUS =====
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+
+// ===== Z-INDEX SCALE =====
+$z-flip-animation: 10;
+$z-focus-ring: 9999;
+
+// ===== BREAKPOINTS =====
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+
+// ===== OPACITY VALUES =====
+$opacity-disabled: 0.6;
+$opacity-faded: 0.75;
+$opacity-secondary: 0.8;
+$opacity-muted: 0.5;
+$opacity-drag: 0.33;

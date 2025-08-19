@@ -1,0 +1,87 @@
+name: Deploy to Development
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: development
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Registry
+        uses: docker/login-action@v3
+        with:
+          # GitHub Container Registry
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "Host ${{ secrets.DEV_SERVER_IP }}" >> ~/.ssh/config
+          echo "  StrictHostKeyChecking accept-new" >> ~/.ssh/config
+          echo "  UserKnownHostsFile ~/.ssh/known_hosts" >> ~/.ssh/config
+
+      - name: Create Kamal secrets file
+        run: |
+          mkdir -p .kamal
+          # Create both files to ensure Kamal finds the secrets
+          cat > .kamal/secrets << EOF
+          KAMAL_REGISTRY_PASSWORD=${{ secrets.GITHUB_TOKEN }}
+          RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY_DEV }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD_DEV }}
+          DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD_DEV }}
+          EOF
+          cp .kamal/secrets .kamal/secrets.development
+          # Debug: Check if secrets file was created properly
+          echo "Secrets file contents:"
+          cat .kamal/secrets
+
+      - name: Deploy with Kamal
+        run: |
+          export KAMAL_REGISTRY_PASSWORD="${{ secrets.GITHUB_TOKEN }}"
+          export RAILS_MASTER_KEY="${{ secrets.RAILS_MASTER_KEY_DEV }}"
+          export POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD_DEV }}"
+          export DB_PASSWORD="${{ secrets.POSTGRES_PASSWORD_DEV }}"
+          # Release any existing locks from failed deployments
+          bin/kamal lock release -c config/deploy.development.yml || true
+          # Boot PostgreSQL accessory first
+          bin/kamal accessory boot postgres -c config/deploy.development.yml || true
+          # Wait for PostgreSQL to be ready
+          sleep 10
+          # Deploy the application
+          bin/kamal deploy -c config/deploy.development.yml
+          
+          # Run migrations after deployment
+          echo "Running database migrations..."
+          bin/kamal app exec -c config/deploy.development.yml "bin/rails db:migrate"
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY_DEV }}
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_DEV }}
+          DB_PASSWORD: ${{ secrets.POSTGRES_PASSWORD_DEV }}
+
+      - name: Clean up
+        if: always()
+        run: |
+          rm -f .kamal/secrets
+          rm -f .kamal/secrets.development
+          rm -f ~/.ssh/id_ed25519

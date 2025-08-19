@@ -1,0 +1,21 @@
+# Notes attached to various notables
+
+job_note:
+  notable: empty_project (Job)
+  user: admin
+  content: "Initial assessment shows hardware failure"
+
+client_note:
+  notable: acme (Client)
+  user: technician
+  content: "Prefer email communication"
+
+task_note:
+  notable: simple_consultation (Task)
+  user: admin
+  content: "Waiting for parts to arrive"
+
+person_note:
+  notable: john_doe (Person)
+  user: technician
+  content: "Primary contact for technical issues"

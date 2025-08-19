@@ -1,0 +1,108 @@
+# Development deployment configuration
+service: bos-dev
+
+# Docker image for development
+image: fluffyx/bos-dev
+
+# Deploy to development server
+servers:
+  web:
+    - 134.199.194.133
+
+# SSL configuration for development
+proxy:
+  ssl: true
+  host: dev.bos.ftls.tech
+
+# Container registry credentials
+registry:
+  # GitHub Container Registry
+  server: ghcr.io
+  username: fluffyx
+  
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Environment variables
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
+    - DB_PASSWORD
+  clear:
+    # Development environment
+    RAILS_ENV: development
+    
+    # Enable debug logging
+    RAILS_LOG_LEVEL: debug
+    
+    # Show detailed error pages
+    RAILS_SERVE_STATIC_FILES: true
+    
+    # Disable forced SSL for easier development
+    FORCE_SSL: false
+    
+    # Run Solid Queue in Puma for single-server setup
+    SOLID_QUEUE_IN_PUMA: true
+    
+    # Database connection (using accessory)
+    DB_HOST: bos-dev-postgres
+    DB_NAME: bos_development
+    DB_USER: bos
+    DB_PORT: 5432
+    
+    # Optional: Redis connection
+    # REDIS_URL: redis://your-dev-redis:6379/0
+
+# Development-specific aliases
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+  
+  # Development helpers
+  routes: app exec "bin/rails routes"
+  migrate: app exec "bin/rails db:migrate"
+  seed: app exec "bin/rails db:seed"
+  reset: app exec "bin/rails db:reset"
+  dbsetup: app exec "bin/rails db:prepare"
+
+# Persistent storage for development
+volumes:
+  - "bos_dev_storage:/rails/storage"
+
+# Asset bridging (optional for dev, but useful)
+asset_path: /rails/public/assets
+
+# Builder configuration
+builder:
+  # Build for AMD64 (Intel/AMD processors)
+  arch: amd64
+  # Enable multi-arch via registry
+  cache:
+    type: registry
+  
+  # Build arguments
+  args:
+    RAILS_ENV: development
+
+# SSH configuration (if not using root)
+# ssh:
+#   user: deploy
+
+# Development accessories
+accessories:
+  # PostgreSQL database
+  postgres:
+    image: postgres:16-alpine
+    host: 134.199.194.133
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_DB: bos_development
+        POSTGRES_USER: bos
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data

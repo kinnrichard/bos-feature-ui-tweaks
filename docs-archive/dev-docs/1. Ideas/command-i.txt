@@ -1,0 +1,134 @@
+     │ Task Info Popover Implementation Research                                                    │
+     │                                                                                              │
+     │ Current Implementation Analysis                                                              │
+     │                                                                                              │
+     │ 1. Existing Task Info Popover Components                                                     │
+     │                                                                                              │
+     │ File: /Users/claude/code/bos/frontend/src/lib/components/tasks/TaskInfoPopover.svelte        │
+     │ - A full-featured task information popover with backdrop and fixed positioning               │
+     │ - Contains task timeline, notes, duration tracking, and add-note functionality               │
+     │ - Uses tasksService.getTaskDetails() to fetch task information                               │
+     │ - Handles keyboard shortcuts (Escape to close, Cmd+Enter to add notes)                       │
+     │ - Has its own positioning logic and backdrop handling                                        │
+     │                                                                                              │
+     │ File:                                                                                        │
+     │ /Users/claude/code/bos/frontend/src/lib/components/tasks/TaskInfoPopoverHeadless.svelte      │
+     │ - A more modern implementation using BasePopover component                                   │
+     │ - Uses Melt UI for better positioning and behavior                                           │
+     │ - Integrates with the existing task selection system                                         │
+     │ - Currently used in TaskRow.svelte (line 254-260)                                            │
+     │ - Supports batch task details for performance optimization                                   │
+     │                                                                                              │
+     │ 2. Current Task Selection & Keyboard Handling                                                │
+     │                                                                                              │
+     │ File: /Users/claude/code/bos/frontend/src/lib/stores/taskSelection.svelte.ts                 │
+     │ - Manages task selection state with selectedTaskIds Set                                      │
+     │ - Provides actions like selectTask(), clearSelection(), toggleTask()                         │
+     │ - Has lastSelectedTaskId for tracking the most recent selection                              │
+     │                                                                                              │
+     │ File: /Users/claude/code/bos/frontend/src/lib/utils/keyboard-handler.ts                      │
+     │ - Handles arrow navigation, Enter, Escape, Delete keys                                       │
+     │ - Currently no Command-I or task info functionality                                          │
+     │ - Has extensible actions interface for adding new keyboard shortcuts                         │
+     │                                                                                              │
+     │ File: /Users/claude/code/bos/frontend/src/lib/components/jobs/TaskList.svelte                │
+     │ - Main task list component with keyboard event handling                                      │
+     │ - Uses KeyboardHandler utility for navigation                                                │
+     │ - Has document-level keyboard event listeners (lines 100, 107)                               │
+     │                                                                                              │
+     │ 3. Current Task Info Display Pattern                                                         │
+     │                                                                                              │
+     │ In TaskRow.svelte:                                                                           │
+     │ <TaskInfoPopoverHeadless                                                                     │
+     │   {task}                                                                                     │
+     │   {jobId}                                                                                    │
+     │   {batchTaskDetails}                                                                         │
+     │   isSelected={isSelected}                                                                    │
+     │   on:task-updated={handleTaskUpdated}                                                        │
+     │ />                                                                                           │
+     │                                                                                              │
+     │ The popover is triggered by clicking an info button, not by keyboard shortcut.               │
+     │                                                                                              │
+     │ Implementation Plan                                                                          │
+     │                                                                                              │
+     │ Phase 1: Add Command-I Keyboard Shortcut Support                                             │
+     │                                                                                              │
+     │ 1. Extend KeyboardHandler utility                                                            │
+     │ (/Users/claude/code/bos/frontend/src/lib/utils/keyboard-handler.ts):                         │
+     │   - Add showTaskInfo: (taskId?: string) => void to the KeyboardActions interface             │
+     │   - Add Command-I detection in handleKeydown() function                                      │
+     │   - Call showTaskInfo() when Command-I is pressed with selected task                         │
+     │ 2. Update TaskList keyboard actions                                                          │
+     │ (/Users/claude/code/bos/frontend/src/lib/components/jobs/TaskList.svelte):                   │
+     │   - Add showTaskInfo action to keyboard handler configuration                                │
+     │   - Implement function to show task info popover for selected task                           │
+     │   - Handle case when no task is selected (show message or do nothing)                        │
+     │                                                                                              │
+     │ Phase 2: Create Programmatic Task Info Display                                               │
+     │                                                                                              │
+     │ 3. Create TaskInfoManager utility:                                                           │
+     │   - Centralized way to show task info popovers programmatically                              │
+     │   - Handle positioning and state management                                                  │
+     │   - Support for both button-triggered and keyboard-triggered display                         │
+     │ 4. Modify TaskInfoPopoverHeadless to support programmatic display:                           │
+     │   - Add prop for external control of popover state                                           │
+     │   - Add positioning support for keyboard-triggered display                                   │
+     │   - Ensure proper focus management when opened via keyboard                                  │
+     │                                                                                              │
+     │ Phase 3: Integration and Testing                                                             │
+     │                                                                                              │
+     │ 5. Update TaskRow integration:                                                               │
+     │   - Support both button-click and programmatic display                                       │
+     │   - Maintain existing functionality while adding keyboard support                            │
+     │ 6. Add keyboard shortcut documentation:                                                      │
+     │   - Update any help text or documentation                                                    │
+     │   - Ensure accessibility compliance                                                          │
+     │                                                                                              │
+     │ Key Functions to Implement                                                                   │
+     │                                                                                              │
+     │ In KeyboardHandler:                                                                          │
+     │                                                                                              │
+     │ // Add to KeyboardActions interface                                                          │
+     │ showTaskInfo: (taskId?: string) => void;                                                     │
+     │                                                                                              │
+     │ // Add to handleKeydown function                                                             │
+     │ if ((event.metaKey || event.ctrlKey) && event.key === 'i') {                                 │
+     │   if (editing) return;                                                                       │
+     │   event.preventDefault();                                                                    │
+     │                                                                                              │
+     │   const selectedIds = selection();                                                           │
+     │   if (selectedIds.size === 1) {                                                              │
+     │     const taskId = Array.from(selectedIds)[0];                                               │
+     │     actions.showTaskInfo(taskId);                                                            │
+     │   }                                                                                          │
+     │   return;                                                                                    │
+     │ }                                                                                            │
+     │                                                                                              │
+     │ In TaskList.svelte:                                                                          │
+     │                                                                                              │
+     │ // Add to keyboard handler configuration                                                     │
+     │ showTaskInfo: (taskId: string) => {                                                          │
+     │   // Find the task and show its info popover                                                 │
+     │   // Position it appropriately relative to the selected task                                 │
+     │   // Focus management for accessibility                                                      │
+     │ }                                                                                            │
+     │                                                                                              │
+     │ Benefits of This Approach                                                                    │
+     │                                                                                              │
+     │ 1. Leverages existing infrastructure: Uses current TaskInfoPopoverHeadless component         │
+     │ 2. Maintains consistency: Same info display whether triggered by button or keyboard          │
+     │ 3. Extensible: Easy to add more keyboard shortcuts using the same pattern                    │
+     │ 4. Accessible: Proper focus management and keyboard navigation                               │
+     │ 5. Performance: Can utilize existing batch task details system                               │
+     │                                                                                              │
+     │ Files to Modify                                                                              │
+     │                                                                                              │
+     │ - /Users/claude/code/bos/frontend/src/lib/utils/keyboard-handler.ts - Add Command-I support  │
+     │ - /Users/claude/code/bos/frontend/src/lib/components/jobs/TaskList.svelte - Implement        │
+     │ showTaskInfo action                                                                          │
+     │ - /Users/claude/code/bos/frontend/src/lib/components/tasks/TaskInfoPopoverHeadless.svelte -  │
+     │ Minor modifications for programmatic control                                                 │
+     │                                                                                              │
+     │ This implementation will provide a seamless Command-I experience that integrates naturally   │
+     │ with the existing task management system.                                                    │
+     ╰──────────────────────────────────────────────────────────────────────────────────────────────╯

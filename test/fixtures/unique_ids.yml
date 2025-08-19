@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  generated_id: "12345"
+  prefix: ""
+  suffix: ""
+  minimum_length: 5
+  use_checksum: false
+
+two:
+  generated_id: "P85875"
+  prefix: "P"
+  suffix: ""
+  minimum_length: 6
+  use_checksum: true

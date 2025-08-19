@@ -1,0 +1,38 @@
+/*
+ * Shared Focus Ring Styles (SCSS)
+ * 
+ * Converted to SCSS with DRY optimizations:
+ * - Consolidated repeated selectors in media queries
+ * - Used mixins for focus ring patterns
+ * - Better organization with SASS nesting
+ */
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+/* Default focus ring for interactive elements */
+.focus-ring:focus-visible {
+  @include focus-ring-standard;
+}
+
+/* For elements that need tighter focus ring (like contenteditable) */
+.focus-ring-tight:focus-visible {
+  @include focus-ring-tight;
+}
+
+/* Dark mode adjustments if needed */
+@media (prefers-color-scheme: dark) {
+  /* Browser handles dark mode focus rings automatically */
+}
+
+/* High contrast and reduced motion consolidated */
+.focus-ring:focus-visible,
+.focus-ring-tight:focus-visible {
+  @include high-contrast {
+    outline-width: 3px;
+  }
+
+  @include no-motion {
+    /* No animations for focus rings */
+  }
+}

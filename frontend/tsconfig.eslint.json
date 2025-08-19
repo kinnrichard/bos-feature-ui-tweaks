@@ -1,0 +1,29 @@
+{
+	// This config is used by ESLint only to include JS config files
+	// that are excluded from the main tsconfig.json
+	"extends": "./tsconfig.json",
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.js",
+		"**/*.jsx",
+		"**/*.svelte",
+		"**/.*.js",
+		"**/.*.cjs",
+		"**/.*.mjs",
+		"eslint.config.js",
+		"svelte.config.js",
+		"tailwind.config.js",
+		"vite.config.js",
+		"postcss.config.js",
+		"eslint-custom-rules/**/*.js",
+		"test/**/*.ts",
+		"test/**/*.js"
+	],
+	"exclude": [
+		"node_modules",
+		"build",
+		".svelte-kit",
+		"package"
+	]
+}

@@ -1,0 +1,256 @@
+<% content_for :title, "Sync Log Details" %>
+
+<div class="sync-log-details">
+  <div class="page-header">
+    <div>
+      <h1>Sync Log Details</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <%= link_to "Front Sync Monitor", admin_front_sync_monitor_index_path %>
+          </li>
+          <li class="breadcrumb-item active">
+            Log #<%= @sync_log.id %>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <%= link_to "Back to Monitor", admin_front_sync_monitor_index_path, 
+          class: "btn btn-outline-primary" %>
+    </div>
+  </div>
+
+  <!-- Log Overview -->
+  <div class="log-overview mb-4">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <%= @sync_log.sync_type.titleize %> Sync 
+              <span class="badge <%= case @sync_log.status
+                                    when 'success' then 'badge-success'
+                                    when 'error' then 'badge-danger'
+                                    when 'running' then 'badge-warning'
+                                    else 'badge-secondary'
+                                    end %>">
+                <%= @sync_log.status.titleize %>
+              </span>
+            </h5>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-3">Started At</dt>
+              <dd class="col-sm-9">
+                <%= @sync_log.started_at ? @sync_log.started_at.strftime("%B %d, %Y at %I:%M %p") : "Not started" %>
+              </dd>
+              
+              <dt class="col-sm-3">Completed At</dt>
+              <dd class="col-sm-9">
+                <%= @sync_log.completed_at ? @sync_log.completed_at.strftime("%B %d, %Y at %I:%M %p") : "Not completed" %>
+              </dd>
+              
+              <dt class="col-sm-3">Duration</dt>
+              <dd class="col-sm-9">
+                <% if @sync_log.started_at && @sync_log.completed_at %>
+                  <%= distance_of_time_in_words(@sync_log.started_at, @sync_log.completed_at) %>
+                <% elsif @sync_log.started_at %>
+                  <span class="text-warning">Still running (started <%= time_ago_in_words(@sync_log.started_at) %> ago)</span>
+                <% else %>
+                  <span class="text-muted">Not started</span>
+                <% end %>
+              </dd>
+              
+              <dt class="col-sm-3">User</dt>
+              <dd class="col-sm-9">
+                <%= @sync_log.user&.email || @sync_log.user&.name || "System" %>
+              </dd>
+              
+              <dt class="col-sm-3">Records Processed</dt>
+              <dd class="col-sm-9">
+                <%= @sync_log.records_processed || 0 %>
+                <% if @sync_log.records_failed && @sync_log.records_failed > 0 %>
+                  <span class="text-danger">(<%= @sync_log.records_failed %> failed)</span>
+                <% end %>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h6 class="mb-0">Quick Stats</h6>
+          </div>
+          <div class="card-body">
+            <% if @sync_log.metadata.present? %>
+              <% stats = @sync_log.metadata['stats'] || {} %>
+              <ul class="list-unstyled mb-0">
+                <% if stats['api_calls'] %>
+                  <li><strong>API Calls:</strong> <%= stats['api_calls'] %></li>
+                <% end %>
+                <% if stats['rate_limit_remaining'] %>
+                  <li><strong>Rate Limit Remaining:</strong> <%= stats['rate_limit_remaining'] %></li>
+                <% end %>
+                <% if stats['response_time_avg'] %>
+                  <li><strong>Avg Response Time:</strong> <%= stats['response_time_avg'] %>ms</li>
+                <% end %>
+                <% if stats['memory_usage'] %>
+                  <li><strong>Memory Usage:</strong> <%= stats['memory_usage'] %>MB</li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-muted">No statistics available</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Details (if applicable) -->
+  <% if @sync_log.status == 'error' %>
+    <div class="error-section mb-4">
+      <h3 class="text-danger">
+        <i class="fas fa-exclamation-triangle"></i> Error Information
+      </h3>
+      <%= render 'error_details', log: @sync_log %>
+    </div>
+  <% end %>
+
+  <!-- Metadata Details -->
+  <% if @sync_log.metadata.present? %>
+    <div class="metadata-section mb-4">
+      <h3>Detailed Information</h3>
+      
+      <% if @sync_log.metadata['sync_summary'].present? %>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h6 class="mb-0">Sync Summary</h6>
+          </div>
+          <div class="card-body">
+            <% summary = @sync_log.metadata['sync_summary'] %>
+            <div class="row">
+              <% if summary['contacts'] %>
+                <div class="col-md-6">
+                  <h6>Contacts</h6>
+                  <ul class="list-unstyled">
+                    <li><strong>Total:</strong> <%= summary['contacts']['total'] || 0 %></li>
+                    <li><strong>Created:</strong> <%= summary['contacts']['created'] || 0 %></li>
+                    <li><strong>Updated:</strong> <%= summary['contacts']['updated'] || 0 %></li>
+                    <li><strong>Skipped:</strong> <%= summary['contacts']['skipped'] || 0 %></li>
+                  </ul>
+                </div>
+              <% end %>
+              
+              <% if summary['conversations'] %>
+                <div class="col-md-6">
+                  <h6>Conversations</h6>
+                  <ul class="list-unstyled">
+                    <li><strong>Total:</strong> <%= summary['conversations']['total'] || 0 %></li>
+                    <li><strong>Created:</strong> <%= summary['conversations']['created'] || 0 %></li>
+                    <li><strong>Updated:</strong> <%= summary['conversations']['updated'] || 0 %></li>
+                    <li><strong>Skipped:</strong> <%= summary['conversations']['skipped'] || 0 %></li>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- Raw Metadata -->
+      <div class="card">
+        <div class="card-header">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#raw-metadata">
+            <i class="fas fa-code"></i> Raw Metadata
+          </button>
+        </div>
+        <div id="raw-metadata" class="collapse">
+          <div class="card-body">
+            <pre class="metadata-json"><%= JSON.pretty_generate(@sync_log.metadata) %></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <% if @sync_log.status == 'error' %>
+      <%= link_to "Retry Sync", 
+          trigger_sync_admin_front_sync_monitor_index_path(sync_type: @sync_log.sync_type),
+          method: :post,
+          class: "btn btn-warning",
+          confirm: "Are you sure you want to retry this sync?" %>
+    <% end %>
+    
+    <%= link_to "Download Log Data", "#", 
+        class: "btn btn-outline-info",
+        onclick: "downloadLogData(); return false;" %>
+  </div>
+</div>
+
+<script>
+function downloadLogData() {
+  const logData = {
+    id: <%= @sync_log.id %>,
+    sync_type: '<%= @sync_log.sync_type %>',
+    status: '<%= @sync_log.status %>',
+    started_at: '<%= @sync_log.started_at %>',
+    completed_at: '<%= @sync_log.completed_at %>',
+    records_processed: <%= @sync_log.records_processed || 0 %>,
+    records_failed: <%= @sync_log.records_failed || 0 %>,
+    error_message: '<%= j(@sync_log.error_message || '') %>',
+    metadata: <%= raw(@sync_log.metadata.to_json) %>
+  };
+  
+  const dataStr = JSON.stringify(logData, null, 2);
+  const dataBlob = new Blob([dataStr], {type: 'application/json'});
+  const url = URL.createObjectURL(dataBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `front_sync_log_${logData.id}_${logData.sync_type}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
+<style>
+.sync-log-details .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.sync-log-details .metadata-json {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.sync-log-details .card .btn-link {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 500;
+  padding: 0;
+}
+
+.sync-log-details .card .btn-link:hover {
+  color: #007bff;
+}
+
+.sync-log-details .action-buttons {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dee2e6;
+}
+</style>

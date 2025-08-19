@@ -1,0 +1,70 @@
+/* Common styles for popover components to maintain DRY principles */
+
+/* Shared popover trigger button styling - eliminates duplication */
+.popover-button {
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+}
+
+.popover-button:hover:not(:disabled) {
+  /* 33% brighter than --bg-secondary (#1c1c1d) = #252527 */
+  background-color: #252527;
+  /* 33% brighter than --border-primary (#38383a) = #494a4d */
+  border-color: #494a4d;
+}
+
+.popover-button:disabled,
+.popover-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Accessibility improvements for popover buttons */
+
+/* High contrast mode support for popover buttons */
+@media (prefers-contrast: high) {
+  .popover-button {
+    border-width: 2px;
+  }
+}
+
+/* Checkmark icon styling - used in all popover selection lists */
+.popover-checkmark-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Error message styling for all popovers */
+.popover-error-message {
+  color: var(--accent-red);
+  font-size: 12px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* Loading indicator styling for all popovers */
+.popover-loading-indicator {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 8px;
+}
+
+/* Common title styling for all popover headers */
+.popover-title {
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+}

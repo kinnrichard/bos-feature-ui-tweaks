@@ -1,0 +1,182 @@
+# ReactiveQuery Architecture Migration Plan
+
+## 🎯 **Objectives**
+
+1. **Unify ReactiveQuery/ReactiveQueryOne** → Single `ReactiveQuery` class
+2. **Rails ActiveRecord API** → Match https://guides.rubyonrails.org/active_record_querying.html patterns  
+3. **Fix Generated Code Antipattern** → Clear warnings, generator-based configuration
+4. **Standardize Error Handling** → Consistent patterns across all queries
+5. **Centralize Configuration** → Single source of truth for Zero.js settings
+
+## 🏗️ **New Architecture Overview**
+
+```
+frontend/src/lib/zero/
+├── zero-config.ts              # Centralized configuration
+├── zero-errors.ts              # Standardized error handling  
+├── reactive-query-unified.ts   # Single ReactiveQuery class
+├── zero-client.ts              # Updated to use centralized config
+└── models/
+    ├── job.generated.ts        # Generated with clear warnings
+    ├── client.generated.ts     # All use unified ReactiveQuery
+    └── ...                     # Rails-style ActiveRecord API
+```
+
+## 🔧 **Implementation Steps**
+
+### Phase 1: Core Infrastructure (1-2 hours)
+
+1. **Deploy new configuration system:**
+   ```bash
+   # Files already created:
+   # ✅ zero-config.ts - Centralized config with environment overrides  
+   # ✅ zero-errors.ts - Standardized error handling with retry logic
+   # ✅ reactive-query-unified.ts - Single class with Rails patterns
+   ```
+
+2. **Update zero-client.ts to use centralized config:**
+   ```typescript
+   import { ZERO_CONFIG, ZERO_SERVER_CONFIG } from './zero-config';
+   // Replace all hardcoded values with config references
+   ```
+
+### Phase 2: Migration Execution (2-3 hours)
+
+3. **Run automated migration:**
+   ```bash
+   # Create backup first
+   node scripts/migrate-reactive-query.js --dry-run  # Preview changes
+   node scripts/migrate-reactive-query.js            # Execute migration
+   ```
+
+4. **Update generator template:**
+   ```bash
+   # Use the new template: lib/generators/zero/mutations/templates/model.generated.ts.erb
+   # Regenerate all model files:
+   rails generate zero:mutations
+   ```
+
+### Phase 3: Rails ActiveRecord Alignment (3-4 hours)
+
+5. **Update model patterns to match Rails:**
+
+   **Before (current):**
+   ```typescript
+   const job = Job.find('123');
+   console.log(job.current); // Confusing API
+   ```
+
+   **After (Rails-style):**
+   ```typescript
+   const job = Job.find('123');
+   console.log(job.record);  // Clear single record
+   console.log(job.present); // Rails .present? method
+   
+   const jobs = Job.where({ status: 'active' });
+   console.log(jobs.records); // Clear collection
+   console.log(jobs.blank);   // Rails .blank? method
+   ```
+
+6. **Add Rails-style query methods:**
+   ```typescript
+   // Generator should create these from Rails model introspection:
+   Job.active()              # From Rails scope
+   Job.by_client(client_id)  # From Rails association
+   Job.recent()              # From Rails scope
+   ```
+
+### Phase 4: Error Handling & Configuration (1-2 hours)
+
+7. **Replace ad-hoc error handling:**
+   ```typescript
+   // Before: Inconsistent error handling
+   catch (err) { console.error(err); }
+   
+   // After: Standardized with retry logic
+   import { zeroErrorHandler, createOperationId } from './zero-errors';
+   
+   const result = await zeroErrorHandler.handleError(err, {
+     operationId: createOperationId('job.find', { id }),
+     operation: 'job.find',
+     queryParams: { id }
+   });
+   ```
+
+8. **Update TTL configuration:**
+   ```typescript
+   // Before: Hardcoded TTL values everywhere
+   '2h', '1s', '30m'
+   
+   // After: Centralized configuration
+   ZERO_CONFIG.query.FIND_TTL        // '2h' for single records
+   ZERO_CONFIG.query.COLLECTION_TTL  // '1h' for collections  
+   ZERO_CONFIG.query.RELATIONSHIP_TTL // '30m' for .related() queries
+   ```
+
+## 🎯 **Rails ActiveRecord API Alignment**
+
+### Core Patterns to Match:
+
+| Rails Pattern | Current Zero | Proposed Zero |
+|---------------|-------------|---------------|
+| `User.find(1)` | `User.find('1').current` | `User.find('1').record` |
+| `User.where(active: true)` | `User.where({active: true}).current` | `User.where({active: true}).records` |
+| `user.present?` | `user.current !== null` | `user.present` |
+| `users.blank?` | `users.current.length === 0` | `users.blank` |
+| `user.reload` | Manual refresh | `user.reload()` |
+
+### Generator Integration:
+
+The Rails generator should introspect your existing ActiveRecord models to create:
+
+1. **TypeScript interfaces** from Rails schema
+2. **Validation methods** from Rails validations  
+3. **Query methods** from Rails scopes
+4. **Association methods** from Rails associations
+5. **Proper TTL configuration** from model annotations
+
+## 🚨 **Generated Code Fix**
+
+### Current Problem:
+```typescript
+// ⚠️  DO NOT EDIT THIS FILE DIRECTLY
+// But then manual TTL parameters added:
+'2h' // TTL restored with proper validation  ← MANUAL EDIT!
+```
+
+### Solution:
+```typescript
+// 🚫 NEVER EDIT GENERATED FILES DIRECTLY
+// 🔄 TO REGENERATE: Run `rails generate zero:mutations`  
+// 🔧 TO MAKE CHANGES: Edit app/models/job.rb or generator config
+
+ttl: '<%= model_config.find_ttl || ZERO_CONFIG.DEFAULT_TTL %>'  // From generator
+```
+
+## ✅ **Success Criteria**
+
+1. **Single ReactiveQuery class** handles both single and collection queries
+2. **Rails-style API** with `.record`, `.records`, `.present`, `.blank` methods  
+3. **Generated files have unmistakable warnings** against manual editing
+4. **Centralized configuration** for all TTL, retry, and debug settings
+5. **Standardized error handling** with automatic retry logic
+6. **Rails generator integration** for model introspection and configuration
+
+## 🎯 **Performance & Maintainability Gains**
+
+- **80% reduction in code duplication** (eliminate ReactiveQueryOne)
+- **Consistent error handling** across all queries with retry logic
+- **Single source of truth** for configuration (no more scattered TTL values)
+- **Rails compatibility** reduces cognitive load for full-stack developers
+- **Generator-driven approach** eliminates manual maintenance of 50+ model files
+
+## 🔧 **Immediate Next Steps**
+
+1. **Review** the created files: `zero-config.ts`, `zero-errors.ts`, `reactive-query-unified.ts`
+2. **Test** the migration script: `node scripts/migrate-reactive-query.js --dry-run`
+3. **Update** your Rails generator to use the new template
+4. **Execute** the migration and validate results
+
+This architecture eliminates all the antipatterns identified while providing a clean, Rails-compatible, maintainable foundation for your Zero.js integration.
+
+Would you like me to proceed with updating your existing files to implement this architecture?

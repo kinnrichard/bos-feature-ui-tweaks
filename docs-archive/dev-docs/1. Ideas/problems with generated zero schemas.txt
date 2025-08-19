@@ -1,0 +1,4 @@
+  The TypeScript check revealed unrelated issues in the codebase:
+  - Schema relationship errors: Jobs table missing assigned_to_id field (should use job_assignments join table)
+  - Null checking issues: Generated mutations need better null guards
+  - Test data type issues: Various test files need type fixes

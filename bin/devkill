@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# BOS Development Server Killer
+# Kills processes running on the three development server ports
+
+set -e
+
+# Define the ports used by the development servers
+RAILS_PORT=3000
+ZERO_PORT=4848
+ZERO_WS_PORT=4849
+FRONTEND_PORT=5173
+
+PORTS=("$RAILS_PORT" "$ZERO_PORT" "$ZERO_WS_PORT" "$FRONTEND_PORT")
+PORT_NAMES=("Rails" "Zero" "Zero WebSocket" "Frontend")
+
+echo "🔍 Checking for development servers..."
+
+killed_any=false
+
+for i in "${!PORTS[@]}"; do
+    port="${PORTS[$i]}"
+    name="${PORT_NAMES[$i]}"
+    
+    # Find processes listening on the port
+    pids=$(lsof -ti tcp:$port 2>/dev/null || true)
+    
+    if [ -n "$pids" ]; then
+        echo "🎯 Found $name server on port $port (PIDs: $pids)"
+        
+        # Kill each process
+        for pid in $pids; do
+            if kill -0 "$pid" 2>/dev/null; then
+                echo "   ⚡ Killing process $pid..."
+                kill -9 "$pid" 2>/dev/null && echo "   ✅ Process $pid killed" || echo "   ❌ Failed to kill process $pid"
+                killed_any=true
+            fi
+        done
+    else
+        echo "   ✨ No $name server found on port $port"
+    fi
+done
+
+if [ "$killed_any" = true ]; then
+    echo ""
+    echo "💀 Development servers killed successfully!"
+    echo "   You can now restart them with: bin/dev"
+else
+    echo ""
+    echo "🎉 No development servers were running"
+fi
+
+echo ""
+echo "📋 Development server ports:"
+echo "   Rails:    http://localhost:$RAILS_PORT"
+echo "   Zero:     http://localhost:$ZERO_PORT"  
+echo "   Zero WS:  http://localhost:$ZERO_WS_PORT"  
+echo "   Frontend: http://localhost:$FRONTEND_PORT"

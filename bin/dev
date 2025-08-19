@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Load environment variables from Kamal secrets file if it exists
+if [ -f ".kamal/secrets.development.real" ]; then
+  echo "Loading environment variables from .kamal/secrets.development.real..."
+  set -a
+  . .kamal/secrets.development.real
+  set +a
+fi
+
+# Load environment variables from .env.development if it exists
+if [ -f ".env.development" ]; then
+  echo "Loading environment variables from .env.development..."
+  set -a
+  . .env.development
+  set +a
+  echo "✅ ZERO_AUTH_SECRET loaded: ${ZERO_AUTH_SECRET}"
+fi
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+# Regenerate Epic-008 models before starting servers
+rails generate zero:active_models
+
+exec foreman start -f Procfile.dev "$@"

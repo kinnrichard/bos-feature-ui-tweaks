@@ -1,0 +1,47 @@
+{
+  "name": "bos",
+  "version": "1.0.1",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:servers": "bin/test-servers",
+    "test:servers:kill": "lsof -ti tcp:4000,4850,6173 | xargs kill -9 2>/dev/null || echo 'No test servers running'",
+    "lint": "LINT_CONTEXT=manual scripts/shared-lint.sh",
+    "lint:check": "LINT_CONTEXT=manual LINT_MODE=check scripts/shared-lint.sh",
+    "lint:fix": "scripts/lint-fix.sh",
+    "lint:staged": "scripts/lint-fix.sh --all-staged",
+    "lint:modified": "scripts/lint-fix.sh --all-modified",
+    "lint:ruby": "scripts/lint-fix.sh --ruby",
+    "lint:frontend": "scripts/lint-fix.sh --frontend",
+    "claude:lint": "scripts/claude-lint-hook.sh",
+    "claude:lint:fix": "scripts/claude-lint-hook.sh --auto-fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@playwright/test": "^1.54.1",
+    "@rocicorp/zero": "^0.21.2025070200",
+    "glob": "^11.0.3",
+    "html2canvas": "^1.4.1",
+    "js-yaml": "^4.1.0",
+    "puppeteer": "^24.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
+    "sass": "^1.89.2",
+    "sass-embedded": "^1.89.2",
+    "svelte": "^5.37.0",
+    "typescript-eslint": "^8.38.0",
+    "ws": "^8.18.3"
+  }
+}

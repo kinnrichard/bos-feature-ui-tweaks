@@ -1,0 +1,45 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+#   gem install pg
+#
+#   Ensure the PostgreSQL gem is defined in your Gemfile
+#   gem "pg"
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("DB_PORT", 5432) %>
+
+development:
+  primary:
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "bos_development") %>
+    username: <%= ENV.fetch("DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("DB_PASSWORD", "") %>
+  zero_cvr:
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "bos_development") %>_cvr
+    username: <%= ENV.fetch("DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("DB_PASSWORD", "") %>
+    migrations_paths: db/cvr_migrate
+  zero_cdb:
+    <<: *default
+    database: <%= ENV.fetch("DB_NAME", "bos_development") %>_cdb
+    username: <%= ENV.fetch("DB_USER", ENV['USER'] || ENV['USERNAME']) %>
+    password: <%= ENV.fetch("DB_PASSWORD", "") %>
+    migrations_paths: db/cdb_migrate
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: bos_test
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DB_NAME", "bos_production") %>
+  username: <%= ENV.fetch("DB_USER", "bos") %>
+  password: <%= ENV.fetch("DB_PASSWORD", ENV["BOS_DATABASE_PASSWORD"]) %>

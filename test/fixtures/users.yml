@@ -1,0 +1,44 @@
+# Test users with different roles
+
+admin:
+  name: Test Admin
+  email: admin@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: admin
+  resort_tasks_on_status_change: true
+
+owner:
+  name: Test Owner
+  email: owner@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: owner
+  resort_tasks_on_status_change: true
+
+customer:
+  name: Test Customer Specialist
+  email: customer@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: customer_specialist
+  resort_tasks_on_status_change: true
+
+technician:
+  name: Test Technician
+  email: tech@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: technician
+  resort_tasks_on_status_change: false
+
+# Additional test users for Zero integration tests
+test_owner:
+  name: Test Owner for Zero
+  email: test-owner@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: owner
+  resort_tasks_on_status_change: true
+
+test_user:
+  name: Test User for Zero
+  email: test-user@bos-test.local
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  role: customer_specialist
+  resort_tasks_on_status_change: true

@@ -1,0 +1,4 @@
+  The only production component that directly uses Zero queries (outside of infrastructure) is:
+  - /frontend/src/routes/(authenticated)/clients/+page.svelte - The clients listing page
+  
+  this should be refactored to use ReactiveRecord

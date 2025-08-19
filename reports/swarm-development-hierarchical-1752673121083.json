@@ -1,0 +1,13 @@
+{
+  "objective": "Implement Epic 014: Standardize debug system, expand 19 namespaces, migrate 145 console.log statements to secure debug functions, and remove technician-assignment namespace",
+  "strategy": "development",
+  "mode": "hierarchical",
+  "maxAgents": 6,
+  "timeout": 60,
+  "parallel": true,
+  "monitor": true,
+  "output": "json",
+  "outputDir": "./reports",
+  "timestamp": "2025-07-16T13:38:41.083Z",
+  "id": "swarm-development-hierarchical-1752673121083"
+}

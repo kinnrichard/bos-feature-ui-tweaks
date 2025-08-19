@@ -1,0 +1,21 @@
+# People associated with clients
+
+john_doe:
+  client: acme
+  name: John Doe
+  title: Primary technical contact
+
+jane_smith:
+  client: acme
+  name: Jane Smith
+  title: IT Manager
+
+bob_wilson:
+  client: techstartup
+  name: Bob Wilson
+  title: CTO
+
+alice_johnson:
+  client: smith_family
+  name: Alice Johnson
+  title: Owner

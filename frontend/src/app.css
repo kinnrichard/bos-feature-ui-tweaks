@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+/* Tailwind v4 Configuration */
+@theme {
+	/* Custom colors matching the old config */
+	--color-black: #000000;
+	--color-white: #FFFFFF;
+	
+	/* Dark theme colors */
+	--color-dark-100: #1C1C1E;
+	--color-dark-200: #1C1C1D;
+	--color-dark-300: #3A3A3C;
+	--color-dark-400: #38383A;
+	--color-dark-500: #48484A;
+	
+	/* Text colors */
+	--color-text-primary: #F2F2F7;
+	--color-text-secondary: #C7C7CC;
+	--color-text-tertiary: #8E8E93;
+	
+	/* Accent colors */
+	--color-blue-500: #00A3FF;
+	--color-blue-600: #0089E0;
+	--color-blue-700: #0A84FF;
+	--color-red-500: #FF453A;
+	--color-red-600: #FF3B30;
+	--color-green-500: #32D74B;
+	--color-yellow-500: #FFD60A;
+	--color-orange-500: #FF9F0A;
+	--color-purple-500: #BF5AF2;
+}
+
+@layer base {
+	:root {
+		/* Colors based on macOS dark theme */
+		--bg-black: #000000;
+		--bg-primary: #1c1c1e;
+		--bg-secondary: #1c1c1d;
+		--bg-tertiary: #3a3a3c;
+		--border-primary: #38383a;
+		--text-primary: #f2f2f7;
+		--text-secondary: #c7c7cc;
+		--text-tertiary: #8e8e93;
+		--brand-primary: #00a3ff;  /* RGB(0, 163, 255) - Primary brand color */
+		--accent-blue: #00a3ff;
+		--accent-blue-hover: #0089e0;
+		
+		/* Status and semantic colors */
+		--accent-green: #30d158;  /* Success/completed state */
+		--accent-green-hover: #28c946;
+		--accent-red: #ff453a;    /* Error/cancelled/failed state */
+		--accent-red-hover: #ff3b30;
+		--accent-orange: #ff9500; /* Warning/paused state */
+		--accent-orange-hover: #ff8c00;
+		--accent-yellow: #ffd60a; /* Caution/pending state */
+		--accent-purple: #bf5af2; /* Special/priority state */
+		
+		/* Task status colors */
+		--status-new: var(--text-secondary);
+		--status-in-progress: var(--accent-blue);
+		--status-paused: var(--accent-orange);
+		--status-completed: var(--accent-green);
+		--status-cancelled: var(--accent-red);
+		--status-failed: var(--accent-red);
+
+		/* Typography */
+		--font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+
+		/* Apple-inspired spacing scale */
+		--space-4xs: 0.125rem; /* 2px */
+		--space-3xs: 0.25rem; /* 4px */
+		--space-2xs: 0.5rem; /* 8px */
+		--space-xs: 0.75rem; /* 12px */
+		--space-sm: 1rem; /* 16px */
+		--space-md: 1.5rem; /* 24px */
+		--space-lg: 2rem; /* 32px */
+		--space-xl: 2.5rem; /* 40px */
+		--space-2xl: 3rem; /* 48px */
+		--space-3xl: 4rem; /* 64px */
+
+		/* Apple-style shadows */
+		--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+		--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+		--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+		--shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+		/* Animation timings */
+		--duration-fast: 150ms;
+		--duration-normal: 250ms;
+		--duration-slow: 350ms;
+		--easing-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+		/* Border radius */
+		--radius-sm: 4px;
+		--radius-md: 6px;
+		--radius-lg: 8px;
+		--radius-xl: 12px;
+		--radius-2xl: 16px;
+		--radius-full: 9999px;
+
+		/* Z-index scale */
+		--z-dropdown: 100;
+		--z-sticky: 200;
+		--z-fixed: 300;
+		--z-modal-backdrop: 1000;
+		--z-modal: 1001;
+		--z-popover: 2000;
+		--z-tooltip: 3000;
+		--z-notification: 4000;
+		--z-max: 9999;
+	}
+
+	html {
+		font-family: var(--font-family);
+		background-color: var(--bg-black);
+		color: var(--text-primary);
+	}
+
+	* {
+		user-select: none;
+	}
+
+
+	body {
+		background-color: var(--bg-black);
+	}
+
+	h1 {
+		color: var(--brand-primary);
+		font-size: 2rem; /* 32px - page headings */
+		font-weight: 600;
+		margin: 0 0 1.5rem 0;
+		line-height: 1.2;
+	}
+
+	/* Responsive h1 styling */
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 1.5rem; /* 24px on mobile */
+		}
+	}
+	
+	/* Global cursor overrides to disable pointer cursors */
+	button,
+	[role="button"],
+	input[type="button"],
+	input[type="submit"],
+	input[type="reset"],
+	input[type="checkbox"],
+	input[type="radio"],
+	select,
+	textarea,
+	a,
+	[onclick],
+	[tabindex]:not([tabindex="-1"]) {
+		/* cursor: default !important; */
+		cursor: default;
+	}
+
+	/* Keep not-allowed cursor for disabled states */
+	button:disabled,
+	[role="button"]:disabled,
+	input:disabled,
+	select:disabled,
+	textarea:disabled,
+	[aria-disabled="true"] {
+		cursor: not-allowed !important;
+	}
+}

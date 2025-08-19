@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Load environment variables from Kamal secrets file if it exists
+if [ -f ".kamal/secrets.development.real" ]; then
+  echo "Loading environment variables from .kamal/secrets.development.real..."
+  set -a
+  source .kamal/secrets.development.real
+  set +a
+fi
+
+# Execute the rails command with all arguments
+exec rails "$@"

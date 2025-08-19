@@ -1,0 +1,63 @@
+# PyCall configuration for Python integration
+# This initializer sets up PyCall to interface with Python libraries
+# for email reply parsing using the Talon library
+
+begin
+  require "pycall"
+  
+  # Initialize Talon library for email parsing
+  Rails.application.config.after_initialize do
+    begin
+      # Import Talon library
+      @talon = PyCall.import_module("talon")
+      
+      # Store Talon reference for global access
+      Rails.application.config.talon_parser = @talon
+      
+      Rails.logger.info "PyCall initialized successfully with Talon library"
+    rescue PyCall::PyError => e
+      Rails.logger.error "Failed to initialize Talon library: #{e.message}"
+      Rails.application.config.talon_parser = nil
+    rescue StandardError => e
+      Rails.logger.error "Unexpected error initializing PyCall: #{e.message}"
+      Rails.application.config.talon_parser = nil
+    end
+  end
+  
+rescue LoadError
+  Rails.logger.warn "PyCall gem not available - email parsing functionality will be disabled"
+  Rails.application.config.talon_parser = nil
+end
+
+# Helper module for accessing Talon parser
+module TalonParserHelper
+  def self.available?
+    Rails.application.config.talon_parser.present?
+  end
+  
+  def self.parser
+    Rails.application.config.talon_parser
+  end
+  
+  def self.health_check
+    return { status: :unavailable, message: "PyCall not loaded" } unless defined?(PyCall)
+    return { status: :unavailable, message: "Talon not initialized" } unless available?
+    
+    begin
+      # Test basic Talon functionality
+      test_email = "Reply text\n\nOn Mon, Dec 1, 2014 at 11:55 AM, Original Sender wrote:\n> Original message"
+      result = parser.quotations.extract_from(test_email)
+      
+      {
+        status: :available,
+        message: "Talon parser is working correctly",
+        test_result: result
+      }
+    rescue StandardError => e
+      {
+        status: :error,
+        message: "Talon parser error: #{e.message}"
+      }
+    end
+  end
+end

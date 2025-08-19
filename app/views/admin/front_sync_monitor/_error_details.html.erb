@@ -1,0 +1,130 @@
+<div class="error-details">
+  <% if log.error_message.present? %>
+    <div class="alert alert-danger">
+      <h6><i class="fas fa-exclamation-triangle"></i> Error Message</h6>
+      <pre class="error-message"><%= log.error_message %></pre>
+    </div>
+  <% end %>
+  
+  <% if log.metadata.present? && log.metadata['error_details'].present? %>
+    <div class="alert alert-warning">
+      <h6><i class="fas fa-info-circle"></i> Error Details</h6>
+      <dl class="mb-0">
+        <% log.metadata['error_details'].each do |key, value| %>
+          <dt><%= key.humanize %></dt>
+          <dd class="mb-2">
+            <% if value.is_a?(Hash) || value.is_a?(Array) %>
+              <pre class="small"><%= JSON.pretty_generate(value) %></pre>
+            <% else %>
+              <%= value %>
+            <% end %>
+          </dd>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+  
+  <% if log.metadata.present? && log.metadata['stack_trace'].present? %>
+    <div class="card">
+      <div class="card-header">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#stack-trace-<%= log.id %>">
+          <i class="fas fa-code"></i> Stack Trace
+        </button>
+      </div>
+      <div id="stack-trace-<%= log.id %>" class="collapse">
+        <div class="card-body">
+          <pre class="stack-trace"><%= log.metadata['stack_trace'] %></pre>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if log.metadata.present? && log.metadata['failed_records'].present? %>
+    <div class="card mt-3">
+      <div class="card-header">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#failed-records-<%= log.id %>">
+          <i class="fas fa-exclamation-circle"></i> Failed Records (<%= log.metadata['failed_records'].count %>)
+        </button>
+      </div>
+      <div id="failed-records-<%= log.id %>" class="collapse">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Record ID</th>
+                  <th>Error</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% log.metadata['failed_records'].each do |failed_record| %>
+                  <tr>
+                    <td><%= failed_record['id'] || 'Unknown' %></td>
+                    <td class="text-danger">
+                      <small><%= failed_record['error'] %></small>
+                    </td>
+                    <td>
+                      <% if failed_record['data'].present? %>
+                        <button class="btn btn-sm btn-outline-info" 
+                                type="button" 
+                                data-toggle="collapse" 
+                                data-target="#record-data-<%= log.id %>-<%= failed_record['id'] || rand(1000) %>">
+                          View Data
+                        </button>
+                        <div id="record-data-<%= log.id %>-<%= failed_record['id'] || rand(1000) %>" class="collapse mt-2">
+                          <pre class="small"><%= JSON.pretty_generate(failed_record['data']) %></pre>
+                        </div>
+                      <% else %>
+                        <span class="text-muted">No data</span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+.error-details .error-message,
+.error-details .stack-trace {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.error-details .card-header .btn-link {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 500;
+}
+
+.error-details .card-header .btn-link:hover {
+  color: #007bff;
+}
+
+.error-details dl dt {
+  font-weight: 600;
+  color: #495057;
+}
+
+.error-details dl dd pre {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  margin: 0;
+}
+</style>

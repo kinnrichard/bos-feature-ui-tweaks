@@ -1,0 +1,117 @@
+# Edge Case Email Formats for Testing
+
+## 1. Email with Multiple Signatures
+Thanks for the update!
+
+Best regards,
+John Doe
+Senior Developer
+john@company.com
+
+--
+Confidential Information
+This email contains proprietary information.
+
+> On Dec 4, 2023:
+> Original message here
+
+## 2. Email with No Clear Quote Markers
+This is a reply to your message about the project status. I think the approach you suggested makes sense and we should proceed with the implementation as planned. The timeline looks reasonable and the technical requirements are clear.
+
+John mentioned that he would handle the backend integration while Sarah focuses on the frontend components. This division of work should help us meet the deadline.
+
+Let me know if you need any clarification on the requirements.
+
+## 3. Email with Nested Quotes
+Thanks for the info!
+
+> On Dec 4:
+> > On Dec 3:
+> > > Original question about the project
+> > 
+> > This was my response to the original question
+> 
+> And this was your follow-up response
+
+## 4. Email with HTML-like Content in Plain Text
+The <script> tag should be handled carefully.
+
+Here's the code snippet:
+<div class="container">
+  <p>Hello World</p>
+</div>
+
+This is not actual HTML, just text that looks like HTML.
+
+> On Dec 4:
+> > Previous message content
+
+## 5. Very Short Reply
+OK
+
+> On Dec 4:
+> Long original message with lots of details about the project...
+
+## 6. Reply with Unicode and Emojis
+Great work! 🎉 Looking forward to the release.
+
+The implementation handles unicode perfectly: ünïcödë, 汉字, עברית
+
+Thanks! 👍
+
+> On Dec 4:
+> Original message in English
+
+## 7. Email with Inline Forwarded Content
+FYI - forwarding this important update.
+
+---------- Forwarded message ---------
+From: Alice <alice@company.com>
+Date: Mon, Dec 4, 2023 at 1:00 PM
+Subject: Project Status
+To: Team <team@company.com>
+
+The project is on track for Q1 delivery.
+---------- End forwarded message ----------
+
+Let me know your thoughts.
+
+> On Dec 4:
+> Your original message
+
+## 8. Reply with No Signature
+This is just a simple reply without any signature or contact information.
+
+> On Dec 4, 2023:
+> Original message content
+
+## 9. Email with Mixed Quote Styles
+Thanks for the clarification.
+
+On 2023-12-04, at 2:30 PM, John wrote:
+> First style of quoting
+
+And then:
+
+    Another style with indentation
+    More indented content
+
+> Yet another quoting style
+> With different markers
+
+## 10. Email with Embedded Lists and Formatting
+Here are my thoughts on the proposal:
+
+1. Architecture looks solid
+2. Implementation timeline is reasonable  
+3. Testing strategy needs more detail
+
+Action items:
+• Review security implications
+• Update documentation
+• Schedule code review
+
+Let's discuss in tomorrow's meeting.
+
+> On Dec 4:
+> Original proposal with technical details

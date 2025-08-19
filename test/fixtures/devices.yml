@@ -1,0 +1,28 @@
+# Devices associated with clients and people
+
+john_laptop:
+  client: acme
+  person: john_doe
+  name: John's Laptop
+  model: MacBook Pro 14"
+  serial_number: SN123456
+  location: Remote
+  notes: Primary work device
+
+jane_desktop:
+  client: acme
+  person: jane_smith
+  name: Jane's Desktop
+  model: iMac 24"
+  serial_number: SN789012
+  location: Office
+  notes: Main office workstation
+
+bob_laptop:
+  client: techstartup
+  person: bob_wilson
+  name: Bob's Laptop
+  model: MacBook Air M2
+  serial_number: SN345678
+  location: Remote
+  notes: Development machine

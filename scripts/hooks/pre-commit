@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# Git pre-commit hook using shared linting logic
+# Maintains exact behavior of original hook but uses DRY shared implementation
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(git rev-parse --show-toplevel)"
+
+# Set git-specific context
+export LINT_CONTEXT="git"
+export LINT_MODE="fix"  # Auto-fix mode for git hooks
+
+# Source shared linting logic
+source "$SCRIPT_DIR/../shared-lint.sh"
+
+# Git-specific functions
+git_header() {
+    echo "🔍 Running pre-commit linting checks..."
+}
+
+git_no_staged_files() {
+    echo "✅ No staged files to lint"
+}
+
+git_success() {
+    echo "✅ All linting checks and final newlines completed!"
+}
+
+restage_modified_files() {
+    local files=("$@")
+    
+    # Check if any files were modified during linting
+    if ! git diff --quiet; then
+        echo "Re-staging auto-fixed files..."
+        for file in "${files[@]}"; do
+            if [[ -f "$file" ]]; then
+                git add "$file"
+            fi
+        done
+    fi
+}
+
+# Main git hook execution
+main() {
+    git_header
+    
+    # Get staged files (exactly like original hook)
+    local staged_files=()
+    while IFS= read -r file; do
+        [[ -n "$file" ]] && staged_files+=("$file")
+    done < <(git diff --cached --name-only --diff-filter=ACM)
+    
+    if [[ ${#staged_files[@]} -eq 0 ]]; then
+        git_no_staged_files
+        exit 0
+    fi
+    
+    echo "Staged files: ${#staged_files[@]}"
+    
+    # Filter to lintable files
+    local lintable_files=()
+    while IFS= read -r file; do
+        [[ -n "$file" ]] && lintable_files+=("$file")
+    done < <(filter_lintable_files "${staged_files[@]}")
+    
+    if [[ ${#lintable_files[@]} -eq 0 ]]; then
+        echo "✅ No Ruby, JS, TS, or Svelte files changed - skipping linting"
+        exit 0
+    fi
+    
+    echo "Lintable files: ${#lintable_files[@]}"
+    
+    # Show breakdown by type (matching original behavior)
+    local ruby_files=()
+    local js_ts_files=()
+    
+    for file in "${lintable_files[@]}"; do
+        local context=$(get_context_for_file "$file")
+        case "$context" in
+            "backend")
+                ruby_files+=("$file")
+                ;;
+            "frontend")
+                js_ts_files+=("$file")
+                ;;
+        esac
+    done
+    
+    if [[ ${#ruby_files[@]} -gt 0 ]]; then
+        echo "  Ruby files: ${#ruby_files[@]}"
+    fi
+    if [[ ${#js_ts_files[@]} -gt 0 ]]; then
+        echo "  JS/TS/Svelte files: ${#js_ts_files[@]}"
+    fi
+    
+    echo ""
+    
+    # Reset state for fresh run
+    reset_lint_state
+    
+    # Run shared linting logic (this replicates all original behavior)
+    if lint_files "${lintable_files[@]}"; then
+        # Re-stage files that were modified during auto-fix
+        restage_modified_files "${lintable_files[@]}"
+        
+        git_success
+        exit 0
+    else
+        echo ""
+        echo "❌ Linting found issues that couldn't be auto-fixed."
+        echo "Please fix them manually and try committing again."
+        echo ""
+        echo "💡 Tip: Use './scripts/lint-fix.sh --all-staged' for auto-fix"
+        exit 1
+    fi
+}
+
+# Execute main function
+main "$@"

@@ -1,0 +1,57 @@
+Description:
+    Generate TypeScript ActiveRecord/ReactiveRecord models from Rails schema (Epic-008 architecture).
+    
+    Creates clean 2-file architecture with TypeScript interfaces:
+    - model-name.ts (ActiveRecord - non-reactive, Promise-based)
+    - reactive-model-name.ts (ReactiveRecord - Svelte 5 reactive)
+    - types/model-name-data.ts (TypeScript interfaces)
+
+Example:
+    bin/rails generate zero:active_models
+
+    This will generate ActiveRecord/ReactiveRecord models for all tables:
+        frontend/src/lib/models/
+        ├── task.ts                    # ActiveRecord<TaskData>
+        ├── reactive-task.ts           # ReactiveRecord<TaskData>
+        ├── user.ts                    # ActiveRecord<UserData>
+        ├── reactive-user.ts           # ReactiveRecord<UserData>
+        ├── types/
+        │   ├── task-data.ts          # TaskData interface
+        │   └── user-data.ts          # UserData interface
+        └── index.ts                   # Barrel exports
+
+    bin/rails generate zero:active_models --table=tasks
+
+    This will generate models only for the tasks table.
+
+Options:
+    --dry-run           Show what would be generated without creating files
+    --force             Force generation even if conflicts are detected
+    --table=NAME        Generate models for specific table only
+    --exclude-tables=x,y,z  Exclude specific tables from generation
+    --output-dir=PATH   Custom output directory (default: frontend/src/lib/models)
+
+Usage Patterns:
+
+    # Non-reactive contexts (Node.js, tests, utilities)
+    import { Task } from '$lib/models/task';
+    const task = await Task.find('123');
+    const tasks = await Task.all().all();
+    await Task.create({ title: 'New Task' });
+
+    # Reactive contexts (Svelte components)
+    import { ReactiveTask } from '$lib/models/reactive-task';
+    const taskQuery = ReactiveTask.find('123');
+    // taskQuery.data automatically updates UI when data changes
+
+    # Import alias for easy switching
+    import { ReactiveTask as Task } from '$lib/models/reactive-task';
+    const taskQuery = Task.find('123'); // Reactive but same API
+
+Architecture Benefits:
+    - Clean separation: ActiveRecord vs ReactiveRecord
+    - Type safety: Strong TypeScript interfaces
+    - Rails compatibility: Same API as Rails ActiveRecord
+    - Discard gem integration: Built-in soft delete support
+    - Zero.js integration: Works with local-first database
+    - Import aliases: Easy reactive/non-reactive switching

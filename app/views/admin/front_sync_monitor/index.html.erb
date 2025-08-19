@@ -1,0 +1,236 @@
+<% content_for :title, "Front API Sync Monitor" %>
+
+<div class="front-sync-monitor">
+  <div class="page-header">
+    <h1>Front API Sync Monitor</h1>
+    <div class="header-actions">
+      <%= link_to "Trigger Manual Sync", "#", 
+          class: "btn btn-primary", 
+          data: { 
+            toggle: "modal", 
+            target: "#manual-sync-modal" 
+          } %>
+      
+      <% if @circuit_breaker_status[:open] %>
+        <%= link_to "Reset Circuit Breaker", 
+            reset_circuit_breaker_admin_front_sync_monitor_index_path,
+            method: :post,
+            class: "btn btn-warning",
+            confirm: "Are you sure you want to reset the circuit breaker?" %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Status Overview Cards -->
+  <div class="status-cards row mb-4">
+    <div class="col-md-3">
+      <div class="card <%= @sync_status[:overall] == 'healthy' ? 'border-success' : 'border-danger' %>">
+        <div class="card-body text-center">
+          <h5 class="card-title">Overall Status</h5>
+          <p class="card-text">
+            <span class="badge <%= @sync_status[:overall] == 'healthy' ? 'badge-success' : 'badge-danger' %>">
+              <%= @sync_status[:overall].titleize %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Last Sync</h5>
+          <p class="card-text">
+            <%= @sync_status[:last_sync] ? time_ago_in_words(@sync_status[:last_sync]) + " ago" : "Never" %>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Success Rate (24h)</h5>
+          <p class="card-text">
+            <span class="<%= @health_metrics[:success_rate] >= 0.9 ? 'text-success' : 'text-warning' %>">
+              <%= number_to_percentage(@health_metrics[:success_rate] * 100, precision: 1) %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Circuit Breaker</h5>
+          <p class="card-text">
+            <span class="badge <%= @circuit_breaker_status[:open] ? 'badge-danger' : 'badge-success' %>">
+              <%= @circuit_breaker_status[:open] ? 'Open' : 'Closed' %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance Stats -->
+  <div class="performance-stats mb-4">
+    <h3>Performance Statistics</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Average Response Time</h6>
+            <p class="card-text"><%= @performance_stats[:avg_response_time] %>ms</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">API Calls (24h)</h6>
+            <p class="card-text"><%= @performance_stats[:api_calls_24h] %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">Error Rate (24h)</h6>
+            <p class="card-text">
+              <span class="<%= @performance_stats[:error_rate] <= 0.05 ? 'text-success' : 'text-danger' %>">
+                <%= number_to_percentage(@performance_stats[:error_rate] * 100, precision: 2) %>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters mb-3">
+    <%= form_with url: admin_front_sync_monitor_index_path, method: :get, local: true, class: "form-inline" do |f| %>
+      <%= f.select "filter[sync_type]", 
+          options_for_select([
+            ['All Types', ''],
+            ['Contacts', 'contacts'],
+            ['Conversations', 'conversations']
+          ], params.dig(:filter, :sync_type)), 
+          {}, { class: "form-control mr-2" } %>
+      
+      <%= f.select "filter[status]", 
+          options_for_select([
+            ['All Statuses', ''],
+            ['Success', 'success'],
+            ['Error', 'error'],
+            ['Running', 'running']
+          ], params.dig(:filter, :status)), 
+          {}, { class: "form-control mr-2" } %>
+      
+      <%= f.date_field "filter[from_date]", 
+          value: params.dig(:filter, :from_date),
+          class: "form-control mr-2",
+          placeholder: "From Date" %>
+      
+      <%= f.date_field "filter[to_date]", 
+          value: params.dig(:filter, :to_date),
+          class: "form-control mr-2",
+          placeholder: "To Date" %>
+      
+      <%= f.submit "Filter", class: "btn btn-outline-primary mr-2" %>
+      <%= link_to "Clear", admin_front_sync_monitor_index_path, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
+
+  <!-- Sync Logs Table -->
+  <div class="sync-logs">
+    <h3>Recent Sync Logs</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Type</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Duration</th>
+            <th>Records</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sync_logs.each do |log| %>
+            <%= render 'sync_log_row', log: log %>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <% if @sync_logs.empty? %>
+        <div class="text-center py-4">
+          <p class="text-muted">No sync logs found matching the current filters.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Manual Sync Modal -->
+<div class="modal fade" id="manual-sync-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Trigger Manual Sync</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <%= form_with url: trigger_sync_admin_front_sync_monitor_index_path, method: :post, local: true do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="sync_type">Sync Type</label>
+            <%= f.select :sync_type, 
+                options_for_select([
+                  ['Full Sync (Contacts + Conversations)', 'full'],
+                  ['Contacts Only', 'contacts'],
+                  ['Conversations Only', 'conversations']
+                ], 'full'), 
+                {}, { class: "form-control" } %>
+          </div>
+          <div class="alert alert-info">
+            <strong>Note:</strong> Manual syncs will be queued as background jobs. 
+            Monitor the sync logs below for progress updates.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <%= f.submit "Start Sync", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+.front-sync-monitor .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.front-sync-monitor .status-cards .card {
+  margin-bottom: 1rem;
+}
+
+.front-sync-monitor .filters {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.front-sync-monitor .table th {
+  border-top: none;
+}
+</style>

@@ -1,0 +1,27 @@
+root = true
+
+[*]
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+# JavaScript, TypeScript, Svelte, JSON, CSS, HTML, Markdown
+[*.{js,ts,jsx,tsx,svelte,json,css,html,md}]
+indent_style = space
+indent_size = 2
+
+# Ruby files
+[*.rb]
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+
+# YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Configuration files that prefer 2 spaces
+[{package.json,tsconfig.json,*.config.js,*.config.ts}]
+indent_style = space
+indent_size = 2

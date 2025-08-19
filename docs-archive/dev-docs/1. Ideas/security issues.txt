@@ -1,0 +1,2 @@
+Zero is configured to let anyone make any db change
+User#password_digest is synced to client

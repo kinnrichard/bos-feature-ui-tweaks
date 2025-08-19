@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  front_message: one
+  front_contact: one
+  role: MyString
+  handle: MyString
+  name: MyString
+  api_links: 
+
+two:
+  front_message: two
+  front_contact: two
+  role: MyString
+  handle: MyString
+  name: MyString
+  api_links: 

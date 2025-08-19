@@ -1,0 +1,116 @@
+{
+  "timestamp": "2025-07-14T17:46:10.114Z",
+  "version": "1.0",
+  "entries": [
+    {
+      "id": "entry_md3e9upe_5a9iisnjm",
+      "key": "story_030_details",
+      "value": "",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-07-14T17:45:53.330Z",
+      "updatedAt": "2025-07-14T17:45:53.330Z",
+      "lastAccessedAt": "2025-07-14T17:45:53.330Z",
+      "version": 1,
+      "size": 31,
+      "compressed": false,
+      "checksum": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126",
+      "references": [],
+      "dependencies": []
+    },
+    {
+      "id": "entry_md3ea7ni_xr6n5ewq8",
+      "key": "story_030_details",
+      "value": "\"# Story 030: Fix Reactive Anti-Patterns Across Job Components\\n\\n**Story ID**: STORY-030  \\n**Priority**: High  \\n**Status**: Ready for Development  \\n**Epic**: Epic-008 ReactiveRecord Implementation  \\n**Created**: 2025-01-14  \\n**Type**: Bug Fix / Refactoring  \\n\\n---\\n\\n## 📋 Story\\n\\n**As a** developer working with job and task components  \\n**I want** all components to use proper ActiveRecord patterns instead of direct property mutations  \\n**So that** server-side changes are reflected immediately in the UI through Zero.js reactivity  \\n\\n## 🎯 Problem Statement\\n\\nDuring debugging of JobStatusButton reactivity issues, we discovered multiple components throughout the codebase are using direct property mutations that break Zero.js reactivity. These components fight against Zero.js's optimistic update system instead of leveraging the ActiveRecord pattern.\\n\\n**Root Issue**: Components are doing `object.property = value` instead of `await Model.update(id, { property: value })`\\n\\nThis causes the same problem that JobStatusButton had:\\n- ✅ Local changes work (optimistic updates)  \\n- ❌ Server changes don't update UI (broken reactivity)\\n- ❌ Stale state and inconsistent data\\n\\n## 🔍 Acceptance Criteria\\n\\n### AC1: TaskList Status Updates Use ActiveRecord Pattern\\n- [ ] Replace `task.status = newStatus` with `await Task.update(taskId, { status: newStatus })`\\n- [ ] Remove manual `tasks = [...tasks]` array updates\\n- [ ] Remove custom optimistic state management \\n- [ ] Let Zero.js handle all optimistic updates and server sync\\n- [ ] Test that task status changes from server reflect immediately in UI\\n\\n### AC2: SchedulePriorityEditPopover Uses ActiveRecord Pattern  \\n- [ ] Replace all direct job property mutations:\\n  - `job.priority = localPriority` → `await Job.update(jobId, { priority })`\\n  - `job.start_date = localStartDate` → included in Job.update call\\n  - `job.start_time = localStartTime` → included in Job.update call\\n  - `job.due_date = localDueDate` → included in Job.update call\\n  - `job.due_time = localDueTime` → included in Job.update call\\n- [ ] Single `Job.update()` call with all changed properties\\n- [ ] Test that schedule/priority changes from server reflect immediately in UI\\n\\n### AC3: TaskInfoPopover Uses ActiveRecord Pattern\\n- [ ] Replace `task.notes_count = (task.notes_count || 0) + 1` with proper Task.update\\n- [ ] Use ActiveRecord pattern for any other task property updates\\n- [ ] Test that task note count changes from server reflect immediately in UI\\n\\n### AC4: TaskInfoPopoverHeadless Uses ActiveRecord Pattern  \\n- [ ] Apply same fixes as TaskInfoPopover (duplicate component)\\n- [ ] Ensure consistency between both popover implementations\\n\\n### AC5: client-acts-as-list.ts Uses ActiveRecord Pattern\\n- [ ] Replace all direct position mutations:\\n  - `task.position = (task.position ?? 0) - 1` → proper Task.update calls\\n  - `task.position = (task.position ?? 0) + 1` → proper Task.update calls  \\n  - `task.position = index + 1` → proper Task.update calls\\n- [ ] Batch position updates efficiently \\n- [ ] Test that task position changes from server reflect immediately in UI\\n\\n### AC6: Remove All Custom Optimistic State\\n- [ ] Audit all components for custom optimistic state variables\\n- [ ] Remove any state that duplicates Zero.js functionality\\n- [ ] Ensure direct reactive binding to model properties\\n\\n### AC7: Comprehensive Testing\\n- [ ] Test each component's local changes (should work immediately via Zero.js optimistic updates)\\n- [ ] Test each component's server changes (should update UI immediately via Zero.js reactive sync)\\n- [ ] Verify no regression in existing functionality\\n- [ ] Add console logging to verify reactive flow works correctly\\n\\n## 🛠️ Technical Tasks\\n\\n### Task 1: Fix TaskList.svelte Reactivity\\n**File**: `/Users/claude/code/bos/frontend/src/lib/components/jobs/TaskList.svelte`\\n**Issue**: Direct task status mutations break Zero.js reactivity\\n\\n```typescript\\n// ❌ CURRENT (breaks reactivity)\\nasync function updateTaskStatus(taskId: string, newStatus: string) {\\n  task.status = newStatus;  // Direct mutation\\n  tasks = [...tasks];       // Manual update\\n  \\n  try {\\n    await tasksService.updateTaskStatus(jobId, taskId, newStatus);\\n  } catch (error) {\\n    task.status = originalStatus;  // Manual rollback\\n    tasks = [...tasks];\\n  }\\n}\\n\\n// ✅ TARGET (proper ActiveRecord pattern)\\nasync function updateTaskStatus(taskId: string, newStatus: string) {\\n  try {\\n    // Zero.js handles optimistic updates AND server sync automatically\\n    await Task.update(taskId, { status: newStatus });\\n  } catch (error) {\\n    console.error('Failed to update task status:', error);\\n    // Zero.js handles rollback automatically\\n  }\\n}\\n```\\n\\n**Steps**:\\n1. Import `Task` from `$lib/models/task`\\n2. Replace direct mutations with `Task.update()` calls\\n3. Remove manual array updates and rollback logic\\n4. Remove custom optimistic state management\\n5. Test task status changes from both UI and server\\n\\n### Task 2: Fix SchedulePriorityEditPopover.svelte Reactivity  \\n**File**: `/Users/claude/code/bos/frontend/src/lib/components/layout/SchedulePriorityEditPopover.svelte`\\n**Issue**: Multiple direct job property mutations break Zero.js reactivity\\n\\n```typescript\\n// ❌ CURRENT (breaks reactivity)\\nfunction handleApply() {\\n  if (localPriority !== job.priority) {\\n    job.priority = localPriority;\\n  }\\n  if (localStartDate !== job.start_date) {\\n    job.start_date = localStartDate || null;\\n  }\\n  if (localStartTime !== job.start_time) {\\n    job.start_time = localStartTime || null;\\n  }\\n  if (localDueDate !== job.due_date) {\\n    job.due_date = localDueDate || null;\\n  }\\n  if (localDueTime !== job.due_time) {\\n    job.due_time = localDueTime || null;\\n  }\\n}\\n\\n// ✅ TARGET (proper ActiveRecord pattern)\\nasync function handleApply() {\\n  const updates: any = {};\\n  \\n  if (localPriority !== job.priority) updates.priority = localPriority;\\n  if (localStartDate !== job.start_date) updates.start_date = localStartDate || null;\\n  if (localStartTime !== job.start_time) updates.start_time = localStartTime || null;\\n  if (localDueDate !== job.due_date) updates.due_date = localDueDate || null;\\n  if (localDueTime !== job.due_time) updates.due_time = localDueTime || null;\\n  \\n  if (Object.keys(updates).length > 0) {\\n    try {\\n      // Single update call - Zero.js handles optimistic updates and server sync\\n      await Job.update(job.id, updates);\\n    } catch (error) {\\n      console.error('Failed to update job:', error);\\n      // TODO: Show error toast to user\\n    }\\n  }\\n}\\n```\\n\\n**Steps**:\\n1. Import `Job` from `$lib/models/job`\\n2. Collect all changes into single update object\\n3. Replace direct mutations with single `Job.update()` call\\n4. Add error handling\\n5. Test schedule/priority changes from both UI and server\\n\\n### Task 3: Fix TaskInfoPopover.svelte Reactivity\\n**File**: `/Users/claude/code/bos/frontend/src/lib/components/tasks/TaskInfoPopover.svelte`\\n**Issue**: Direct task property mutations break Zero.js reactivity\\n\\n```typescript\\n// ❌ CURRENT (breaks reactivity)\\nasync function addNote() {\\n  // ... add note logic\\n  task.notes_count = (task.notes_count || 0) + 1;\\n}\\n\\n// ✅ TARGET (proper ActiveRecord pattern)  \\nasync function addNote() {\\n  try {\\n    // Add note via API\\n    const response = await tasksService.addNote(jobId, task.id, noteText.trim());\\n    \\n    // Update task via ActiveRecord pattern\\n    await Task.update(task.id, { \\n      notes_count: (task.notes_count || 0) + 1 \\n    });\\n    \\n    // Update local task details if needed\\n    if (taskDetails?.notes) {\\n      taskDetails.notes.push(response.note);\\n    }\\n  } catch (error) {\\n    console.error('Failed to add note:', error);\\n  }\\n}\\n```\\n\\n**Steps**:\\n1. Import `Task` from `$lib/models/task`\\n2. Replace direct mutations with `Task.update()` calls\\n3. Test note count changes from both UI and server\\n\\n### Task 4: Fix TaskInfoPopoverHeadless.svelte Reactivity\\n**File**: `/Users/claude/code/bos/frontend/src/lib/components/tasks/TaskInfoPopoverHeadless.svelte`\\n**Issue**: Same as TaskInfoPopover (duplicate component)\\n\\n**Steps**:\\n1. Apply same fixes as Task 3\\n2. Ensure both popover implementations are consistent\\n3. Consider consolidating duplicate code if possible\\n\\n### Task 5: Fix client-acts-as-list.ts Reactivity\\n**File**: `/Users/claude/code/bos/frontend/src/lib/utils/client-acts-as-list.ts`\\n**Issue**: Direct task position mutations break Zero.js reactivity\\n\\n```typescript\\n// ❌ CURRENT (breaks reactivity)\\ntask.position = (task.position ?? 0) - 1;\\ntask.position = (task.position ?? 0) + 1;\\ntask.position = index + 1;\\n\\n// ✅ TARGET (proper ActiveRecord pattern)\\nawait Task.update(task.id, { position: newPosition });\\n```\\n\\n**Steps**:\\n1. Import `Task` from `$lib/models/task`\\n2. Replace direct position mutations with `Task.update()` calls\\n3. Consider batching position updates for performance\\n4. Test task reordering from both UI and server\\n\\n### Task 6: Comprehensive Audit and Testing\\n**Goal**: Ensure no other reactive anti-patterns exist\\n\\n**Steps**:\\n1. Search codebase for remaining direct property mutations:\\n   ```bash\\n   grep -r \\\"\\\\.status\\\\s*=\\\" src/\\n   grep -r \\\"\\\\.priority\\\\s*=\\\" src/\\n   grep -r \\\"\\\\.position\\\\s*=\\\" src/\\n   grep -r \\\"\\\\.\\\\w+\\\\s*=.*(?!==|!=)\\\" src/\\n   ```\\n2. Test each fixed component:\\n   - Local changes should work immediately (Zero.js optimistic updates)\\n   - Server changes should update UI immediately (Zero.js reactive sync)\\n   - No console errors or broken functionality\\n3. Add debug logging to verify reactive flow\\n4. Document the correct patterns for future development\\n\\n## 🎯 Success Criteria\\n\\n### Functional Success\\n- [ ] All task status changes from server update UI immediately\\n- [ ] All job schedule/priority changes from server update UI immediately  \\n- [ ] All task note count changes from server update UI immediately\\n- [ ] All task position changes from server update UI immediately\\n- [ ] Local changes continue to work with optimistic updates\\n- [ ] No regression in existing functionality\\n\\n### Technical Success  \\n- [ ] Zero `object.property = value` direct mutations remain\\n- [ ] All model updates use `Model.update(id, attributes)` pattern\\n- [ ] No custom optimistic state management that duplicates Zero.js\\n- [ ] Clean, consistent reactive patterns across all components\\n- [ ] Proper error handling for failed updates\\n\\n### Performance Success\\n- [ ] No performance regression\\n- [ ] Efficient batching of multiple property updates\\n- [ ] Minimal redundant network requests\\n\\n## 🧪 Testing Plan\\n\\n### Manual Testing\\n1. **TaskList Component**:\\n   - Change task status in UI → should work immediately\\n   - Change task status on server → should update UI immediately\\n   - Test with multiple tasks and rapid status changes\\n\\n2. **SchedulePriorityEditPopover Component**:\\n   - Change job priority in UI → should work immediately  \\n   - Change job schedule in UI → should work immediately\\n   - Change job priority/schedule on server → should update UI immediately\\n\\n3. **TaskInfoPopover Components**:\\n   - Add note in UI → notes count should update immediately\\n   - Add note on server → notes count should update UI immediately\\n\\n4. **Task Reordering**:\\n   - Reorder tasks in UI → should work immediately\\n   - Reorder tasks on server → should update UI immediately\\n\\n### Automated Testing\\n- [ ] Add unit tests for each fixed component\\n- [ ] Add integration tests for reactive behavior\\n- [ ] Add regression tests to prevent future anti-patterns\\n\\n## 📚 Dev Notes\\n\\n### Key Principles for Reactive Components\\n1. **Never mutate reactive objects directly**: `object.property = value` breaks Zero.js\\n2. **Always use ActiveRecord pattern**: `await Model.update(id, attributes)`\\n3. **Trust Zero.js optimistic updates**: Don't implement custom optimistic state\\n4. **Single source of truth**: Let Zero.js manage all state changes\\n5. **Direct reactive binding**: Use `$derived(object.property)`, not custom state\\n\\n### Common Anti-Patterns to Avoid\\n```typescript\\n// ❌ DON'T - breaks reactivity\\nobject.property = newValue;\\narray = [...array]; // manual updates\\nlet optimisticState = $state(); // duplicates Zero.js\\n\\n// ✅ DO - proper reactive pattern  \\nawait Model.update(id, { property: newValue });\\nconst derived = $derived(object.property); // direct binding\\n```\\n\\n### Error Handling Best Practices\\n```typescript\\ntry {\\n  await Model.update(id, attributes);\\n} catch (error) {\\n  console.error('Update failed:', error);\\n  // TODO: Show user-friendly error message\\n  // Zero.js handles rollback automatically\\n}\\n```\\n\\n## 🚀 Definition of Done\\n\\n- [ ] All identified components use proper ActiveRecord patterns\\n- [ ] Zero direct property mutations remain in codebase\\n- [ ] All manual testing scenarios pass\\n- [ ] No console errors during reactive operations\\n- [ ] Code review completed and approved\\n- [ ] Documentation updated with correct patterns\\n- [ ] Future development guidelines established to prevent regression\\n\\n---\\n\\n**Related Issues**: JobStatusButton reactivity fix (Story 029)  \\n**Dependencies**: Epic-008 ReactiveRecord Implementation  \\n**Estimated Effort**: 3-4 days  \\n**Risk Level**: Medium (multiple components, thorough testing required)\"",
+      "type": "string",
+      "namespace": "default",
+      "tags": [],
+      "metadata": {},
+      "owner": "system",
+      "accessLevel": "shared",
+      "createdAt": "2025-07-14T17:46:10.110Z",
+      "updatedAt": "2025-07-14T17:46:10.110Z",
+      "lastAccessedAt": "2025-07-14T17:46:10.110Z",
+      "version": 1,
+      "size": 13797,
+      "compressed": true,
+      "checksum": "8236f4aa94bc2abd3d8e9327ad7bde27cfb25d83616d0e1adeb7ace8fd102001",
+      "references": [],
+      "dependencies": []
+    }
+  ],
+  "statistics": {
+    "overview": {
+      "totalEntries": 2,
+      "totalSize": 13828,
+      "compressedEntries": 1,
+      "compressionRatio": -444.06451612903226,
+      "indexSize": 100,
+      "memoryUsage": 7039904,
+      "diskUsage": 0
+    },
+    "distribution": {
+      "byNamespace": {
+        "default": {
+          "count": 2,
+          "size": 13828
+        }
+      },
+      "byType": {
+        "string": {
+          "count": 2,
+          "size": 13828
+        }
+      },
+      "byOwner": {
+        "system": {
+          "count": 2,
+          "size": 13828
+        }
+      },
+      "byAccessLevel": {
+        "shared": {
+          "count": 2,
+          "size": 13828
+        }
+      }
+    },
+    "temporal": {
+      "entriesCreatedLast24h": 2,
+      "entriesUpdatedLast24h": 2,
+      "entriesAccessedLast24h": 2,
+      "oldestEntry": "2025-07-14T17:45:53.330Z",
+      "newestEntry": "2025-07-14T17:46:10.110Z"
+    },
+    "performance": {
+      "averageQueryTime": 0,
+      "averageWriteTime": 1,
+      "cacheHitRatio": 0,
+      "indexEfficiency": 0.95
+    },
+    "health": {
+      "expiredEntries": 0,
+      "orphanedReferences": 0,
+      "duplicateKeys": 1,
+      "corruptedEntries": 0,
+      "recommendedCleanup": false
+    },
+    "optimization": {
+      "suggestions": [
+        "1 duplicate keys found"
+      ],
+      "potentialSavings": {
+        "compression": 0,
+        "cleanup": 0,
+        "deduplication": 13797
+      },
+      "indexOptimization": [
+        "Consider periodic index rebuilding for optimal performance"
+      ]
+    }
+  }
+}

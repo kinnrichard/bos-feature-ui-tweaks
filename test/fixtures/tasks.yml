@@ -1,0 +1,257 @@
+# Test tasks with comprehensive scenarios for TaskList testing
+
+# =============================================
+# NETWORK INFRASTRUCTURE TASKS - Linear workflow for basic testing
+# =============================================
+
+network_survey:
+  job: network_infrastructure
+  title: Site Survey and Planning
+  status: 3  # successfully_completed
+  position: 10
+  assigned_to: technician
+
+network_equipment:
+  job: network_infrastructure
+  title: Install Network Equipment
+  status: 1  # in_progress
+  position: 20
+  assigned_to: technician
+
+network_config:
+  job: network_infrastructure
+  title: Configure Network Settings
+  status: 0  # new_task
+  position: 30
+
+network_testing:
+  job: network_infrastructure
+  title: Test and Document
+  status: 0  # new_task
+  position: 40
+
+# =============================================
+# ENTERPRISE DEPLOYMENT - Complex hierarchical structure
+# =============================================
+
+# Phase 1: Planning (Parent task with subtasks)
+# WiFi Installation Tasks
+wifi_router:
+  job: home_wifi
+  title: Install WiFi Router
+  status: 3  # successfully_completed
+  position: 10
+  assigned_to: technician
+
+wifi_config:
+  job: home_wifi
+  title: Configure WiFi Network
+  status: 1  # in_progress
+  position: 20
+  assigned_to: technician
+
+wifi_coverage:
+  job: home_wifi
+  title: Test Coverage Areas
+  status: 0  # new_task
+  position: 30
+
+# Security System Tasks (completed job)
+security_cameras:
+  job: security_upgrade
+  title: Install Security Cameras
+  status: 3  # successfully_completed
+  position: 10
+  assigned_to: technician
+
+security_monitoring:
+  job: security_upgrade
+  title: Configure Monitoring System
+  status: 3  # successfully_completed
+  position: 20
+
+security_training:
+  job: security_upgrade
+  title: Train Homeowner
+  status: 3  # successfully_completed
+  position: 30
+
+# Server Migration Tasks
+migration_backup:
+  job: server_migration
+  title: Backup Current Systems
+  status: 0  # new_task
+  position: 10
+
+migration_cloud:
+  job: server_migration
+  title: Provision Cloud Infrastructure
+  status: 0  # new_task
+  position: 20
+
+migration_apps:
+  job: server_migration
+  title: Migrate Applications
+  status: 0  # new_task
+  position: 30
+
+migration_testing:
+  job: server_migration
+  title: Testing and Validation
+  status: 0  # new_task
+  position: 40
+
+migration_golive:
+  job: server_migration
+  title: Go-Live and Monitoring
+  status: 0  # new_task
+  position: 50
+
+# =============================================
+# SYSTEM MIGRATION - Large job for drag & drop testing (20 tasks)
+# =============================================
+
+migration_task_01:
+  job: server_migration
+  title: Migration Task 1
+  status: 3  # successfully_completed
+  position: 10
+
+migration_task_02:
+  job: server_migration
+  title: Migration Task 2
+  status: 3  # successfully_completed
+  position: 20
+
+migration_task_03:
+  job: server_migration
+  title: Migration Task 3
+  status: 1  # in_progress
+  position: 30
+
+migration_task_04:
+  job: server_migration
+  title: Migration Task 4
+  status: 1  # in_progress
+  position: 40
+
+migration_task_05:
+  job: server_migration
+  title: Migration Task 5
+  status: 0  # new_task
+  position: 50
+
+migration_task_06:
+  job: server_migration
+  title: Migration Task 6
+  status: 0  # new_task
+  position: 60
+
+migration_task_07:
+  job: server_migration
+  title: Migration Task 7
+  status: 0  # new_task
+  position: 70
+
+migration_task_08:
+  job: server_migration
+  title: Migration Task 8
+  status: 0  # new_task
+  position: 80
+
+migration_task_09:
+  job: server_migration
+  title: Migration Task 9
+  status: 0  # new_task
+  position: 90
+
+migration_task_10:
+  job: server_migration
+  title: Migration Task 10
+  status: 0  # new_task
+  position: 100
+
+migration_task_11:
+  job: server_migration
+  title: Migration Task 11
+  status: 0  # new_task
+  position: 110
+
+migration_task_12:
+  job: server_migration
+  title: Migration Task 12
+  status: 0  # new_task
+  position: 120
+
+migration_task_13:
+  job: server_migration
+  title: Migration Task 13
+  status: 0  # new_task
+  position: 130
+
+migration_task_14:
+  job: server_migration
+  title: Migration Task 14
+  status: 0  # new_task
+  position: 140
+
+migration_task_15:
+  job: server_migration
+  title: Migration Task 15
+  status: 0  # new_task
+  position: 150
+
+migration_task_16:
+  job: server_migration
+  title: Migration Task 16
+  status: 0  # new_task
+  position: 160
+
+migration_task_17:
+  job: server_migration
+  title: Migration Task 17
+  status: 0  # new_task
+  position: 170
+
+migration_task_18:
+  job: server_migration
+  title: Migration Task 18
+  status: 0  # new_task
+  position: 180
+
+migration_task_19:
+  job: server_migration
+  title: Migration Task 19
+  status: 0  # new_task
+  position: 190
+
+migration_task_20:
+  job: server_migration
+  title: Migration Task 20
+  status: 0  # new_task
+  position: 200
+
+# =============================================
+# LEGACY TASKS - Backwards compatibility
+# =============================================
+
+# Tasks for empty_project
+open_task_1:
+  job: empty_project
+  title: Check server logs
+  status: 0  # new_task
+  position: 10
+  assigned_to: technician
+
+open_task_2:
+  job: empty_project
+  title: Analyze performance metrics
+  status: 0  # new_task
+  position: 20
+  assigned_to: technician
+
+open_task_3:
+  job: empty_project
+  title: Apply optimizations
+  status: 0  # new_task
+  position: 30

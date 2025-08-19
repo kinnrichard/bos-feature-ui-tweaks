@@ -1,0 +1,84 @@
+/* Shared styles for job pages (SCSS)
+ * 
+ * Converted to SCSS with DRY optimizations:
+ * - Used action-button mixin for consistent button styling  
+ * - Applied transition mixins for smooth interactions
+ * - Better organization with SASS nesting
+ */
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+/* Page Header Typography */
+.page-header {
+  h1 {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+  font-size: $font-size-base;
+  color: var(--text-secondary);
+  margin-bottom: $gap-lg;
+}
+
+.breadcrumb-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  @include transition-smooth(color);
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+.breadcrumb-separator {
+  margin: 0 $gap-lg;
+  color: var(--text-tertiary);
+}
+
+.breadcrumb-current {
+  color: var(--text-primary);
+}
+
+/* Action Buttons */
+.action-button {
+  @include action-button-base();
+
+  &--small {
+    @include action-button-base($padding-y: 12px, $padding-x: 20px);
+  }
+}
+
+.button-icon {
+  font-size: $font-size-md;
+}
+
+/* Filter Info */
+.filter-info {
+  @include flex-row();
+  margin-top: $gap-lg;
+  padding: $gap-lg $gap-xl;
+  background-color: var(--bg-tertiary);
+  border-radius: $radius-md;
+  border: 1px solid var(--border-primary);
+}
+
+.filter-label {
+  font-size: $font-size-base;
+  color: var(--text-secondary);
+}
+
+.clear-filter {
+  font-size: $font-size-base;
+  color: var(--accent-blue);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

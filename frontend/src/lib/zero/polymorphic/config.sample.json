@@ -1,0 +1,224 @@
+{
+  "associations": {
+    "notable": {
+      "type": "notable",
+      "description": "Notes can belong to jobs, tasks, and clients",
+      "validTargets": {
+        "jobs": {
+          "modelName": "Job",
+          "tableName": "jobs",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "tasks": {
+          "modelName": "Task",
+          "tableName": "tasks",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "clients": {
+          "modelName": "Client",
+          "tableName": "clients",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        }
+      },
+      "metadata": {
+        "createdAt": "2025-08-06T00:00:00.000Z",
+        "updatedAt": "2025-08-06T00:00:00.000Z",
+        "configVersion": "1.0.0",
+        "generatedBy": "PolymorphicTracker"
+      }
+    },
+    "loggable": {
+      "type": "loggable",
+      "description": "Activity logs track changes to various models",
+      "validTargets": {
+        "jobs": {
+          "modelName": "Job",
+          "tableName": "jobs",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "tasks": {
+          "modelName": "Task",
+          "tableName": "tasks",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "clients": {
+          "modelName": "Client",
+          "tableName": "clients",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "users": {
+          "modelName": "User",
+          "tableName": "users",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "people": {
+          "modelName": "Person",
+          "tableName": "people",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "scheduled_date_times": {
+          "modelName": "ScheduledDateTime",
+          "tableName": "scheduled_date_times",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "people_groups": {
+          "modelName": "PeopleGroup",
+          "tableName": "people_groups",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "people_group_memberships": {
+          "modelName": "PeopleGroupMembership",
+          "tableName": "people_group_memberships",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "devices": {
+          "modelName": "Device",
+          "tableName": "devices",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        }
+      },
+      "metadata": {
+        "createdAt": "2025-08-06T00:00:00.000Z",
+        "updatedAt": "2025-08-06T00:00:00.000Z",
+        "configVersion": "1.0.0",
+        "generatedBy": "PolymorphicTracker"
+      }
+    },
+    "schedulable": {
+      "type": "schedulable",
+      "description": "Scheduled date times can belong to jobs and tasks",
+      "validTargets": {
+        "jobs": {
+          "modelName": "Job",
+          "tableName": "jobs",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "tasks": {
+          "modelName": "Task",
+          "tableName": "tasks",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        }
+      },
+      "metadata": {
+        "createdAt": "2025-08-06T00:00:00.000Z",
+        "updatedAt": "2025-08-06T00:00:00.000Z",
+        "configVersion": "1.0.0",
+        "generatedBy": "PolymorphicTracker"
+      }
+    },
+    "target": {
+      "type": "target",
+      "description": "Job targets can reference clients, people, and people groups",
+      "validTargets": {
+        "clients": {
+          "modelName": "Client",
+          "tableName": "clients",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "people": {
+          "modelName": "Person",
+          "tableName": "people",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "people_groups": {
+          "modelName": "PeopleGroup",
+          "tableName": "people_groups",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        }
+      },
+      "metadata": {
+        "createdAt": "2025-08-06T00:00:00.000Z",
+        "updatedAt": "2025-08-06T00:00:00.000Z",
+        "configVersion": "1.0.0",
+        "generatedBy": "PolymorphicTracker"
+      }
+    },
+    "parseable": {
+      "type": "parseable",
+      "description": "Parsed emails can belong to jobs and tasks",
+      "validTargets": {
+        "jobs": {
+          "modelName": "Job",
+          "tableName": "jobs",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        },
+        "tasks": {
+          "modelName": "Task",
+          "tableName": "tasks",
+          "discoveredAt": "2025-08-06T00:00:00.000Z",
+          "lastVerifiedAt": "2025-08-06T00:00:00.000Z",
+          "active": true,
+          "source": "generated-schema"
+        }
+      },
+      "metadata": {
+        "createdAt": "2025-08-06T00:00:00.000Z",
+        "updatedAt": "2025-08-06T00:00:00.000Z",
+        "configVersion": "1.0.0",
+        "generatedBy": "PolymorphicTracker"
+      }
+    }
+  },
+  "metadata": {
+    "createdAt": "2025-08-06T00:00:00.000Z",
+    "updatedAt": "2025-08-06T00:00:00.000Z",
+    "configVersion": "1.0.0",
+    "totalAssociations": 5,
+    "totalTargets": 20,
+    "generatedBy": "PolymorphicTracker"
+  }
+}

@@ -1,0 +1,9 @@
+# Python dependencies for email reply parsing
+# Used with PyCall gem for Ruby-Python integration
+
+# Talon - Email reply parsing library (latest available version)
+talon==1.4.4
+
+# Additional dependencies that Talon might need
+lxml>=4.6.0
+chardet>=4.0.0

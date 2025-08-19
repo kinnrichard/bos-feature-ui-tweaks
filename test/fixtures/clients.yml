@@ -1,0 +1,26 @@
+# Test clients that match the actual database schema
+
+acme:
+  name: Acme Corporation
+  client_type: business
+  name_normalized: acmecorporation
+
+smith_family:
+  name: Smith Family Residence
+  client_type: residential
+  name_normalized: smithfamilyresidence
+
+office_complex:
+  name: Downtown Office Complex
+  client_type: business
+  name_normalized: downtownofficecomplex
+
+johnson_home:
+  name: Johnson Home
+  client_type: residential
+  name_normalized: johnsonhome
+
+techstartup:
+  name: Tech Startup Inc
+  client_type: business
+  name_normalized: techstartupinc

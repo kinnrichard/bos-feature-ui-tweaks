@@ -1,0 +1,18 @@
+# Job assignments linking jobs to technicians
+# Updated to reference existing jobs from jobs.yml
+
+network_infrastructure_tech:
+  job: network_infrastructure
+  user: technician
+
+home_wifi_tech:
+  job: home_wifi
+  user: technician
+
+server_migration_admin:
+  job: server_migration
+  user: admin
+
+security_upgrade_owner:
+  job: security_upgrade
+  user: owner
