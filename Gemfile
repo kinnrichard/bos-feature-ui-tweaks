@@ -9,7 +9,7 @@ gem "actioncable", "~> 8.0.2"
 # Dart Sass for SCSS compilation
 # gem "dartsass-rails" # Not needed for API mode
 # Use PostgreSQL as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.6"
 # Use Active Storage for file uploads
 gem "image_processing", "~> 1.2"
 # Use the Puma web server [https://github.com/puma/puma]
